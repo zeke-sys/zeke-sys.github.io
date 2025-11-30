@@ -38,6 +38,7 @@ body{
 .daily-greeting {
     font-size: 1rem;
     font-weight: 500;
+    font-style: italic;
     color: var(--accent);
     margin: 0 0 6px;
 }

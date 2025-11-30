@@ -1,12 +1,14 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=devide-width, initial-scale=1.0" />
   <title>Projects | Zeke Isaac</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
+  <header class="sub-header">
     <h1>Projects</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -14,11 +16,22 @@
       <a href="zeke_resume.pdf">Resume</a>
     </nav>
   </header>
-  <section>
-    <h2>RSA Cryptography Toolkit</h2>
-    <p>Implements modular exponentiation, key generation, and message encoding/decoding.</p>
-    <h2>Trie Word Prediction and Autocomplete Application</h2>
-    <p>A prefix tree based application providing autocomplete and word prediction functionality.</p>
+  <section class="projects-grid">
+
+    <div class="project-card">
+      <img src="assets/rsa-placeholder.jpg" alt="RSA Toolkit" />
+      <h3>RSA Cryptography Toolkit</h3>
+      <p>Implements modular exponentiation (FME), key generation (Euclidean Algorithm), and end-to-end message encoding/decoding.</p>
+      <a href="#" class ="github-link">GitHub Repo (placeholder)</a>
+    </div>
+
+    <div class="project-card">
+      <img src="assets/trie-placeholder.jpg" alt="Trie Autocomplete" />
+      <h3>Trie Word Prediction & Autocomplete Application</h3>
+      <p>A high-performance prefix tree implementation supporting autocomplete, search, word frequency, and predictive modeling.</p>
+      <a href="#" class ="github-link">GitHub Repo (placeholder)</a>
+    </div>
+    
   </section>
 </body>
 </html>

@@ -6,28 +6,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zeke Isaac | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
+
 <body>
-  <header class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <img src="assets/profile.jpg" alt="Profile" class="profile-pic" />
-      <h1>Zeke Isaac</h1>
-      <p>IT Audit Manager • Computer Science Student • Security & Systems Audit</p>
-      <nav>
+  
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Zeke Isaac</a>
+
+      <nav class="nav-links" role="navigation" aria-label="Main">
+        <a href="index.html">Home</a>
         <a href="projects.html">Projects</a>
         <a href="about.html">About</a>
-        <a href="zeke-resume.pdf">Resume</a>
+        <a href="zeke_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
       </nav>
     </div>
   </header>
-  <section class ="intro">
-    <h2>Welcome</h2>
-    <p>
-      My passion lies in learning advanced algorithms, exploring data structures, and applying them to real-world problems across security,
-      automation, and system analytics.
-    </p>
-    <img src="assets/tech-banner-placeholder.jpg" class="banner-img" alt="Technology Banner" />
-  </section>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" data-animate="slide-up">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <img src="https://picsum.photos/seed/zeke/300/300" alt="Zeke profile" class="profile-img" />
+        </div>
+        <div class="hero-right">
+          <h1>IT Audit Manager • Computer Science Student • Cybersecurity & Systems Audit • Automation</h1>
+          <p class="lead">
+            I combine IT audit, automation, and security expertise to improve efficiency, reduce risk, and enable smarter decisions.
+          </p>
+          <p>
+            Computer Science student at the University of Colorado Boulder, with 8 years of experience in enterprise systems audit.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="projects.html">See Projects</a>
+            <a class="btn secondary" href="zeke-resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro container" data-animate="fade-in">
+      <h2>Welcome</h2>
+      <p>
+        My passion lies in exploring advanced algorithms and data structures, and applying them to real-world problems across security, automation, and system analytics.
+      </p>
+      <img class="banner-img" src="https://picsum.photos/seed/tech/1200/400" alt="technology banner">
+    </section>
+  </main>
+
+  <!-- FOOTER (kept minimal here) -->
+  <footer class="site-footer" data-animate="fade-in">
+    <div class="container">
+      <div class="socials">
+        <a href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/ezechiel-isaac" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <small>© <span id="year"></span> Zeke Isaac</small>
+    </div>
+  </footer>
+
 </body>
 </html>
+

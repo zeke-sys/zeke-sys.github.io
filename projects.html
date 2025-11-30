@@ -6,32 +6,83 @@
   <meta name="viewport" content="width=devide-width, initial-scale=1.0" />
   <title>Projects | Zeke Isaac</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="sub-header">
-    <h1>Projects</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="zeke-resume.pdf">Resume</a>
-    </nav>
+  
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Zeke Isaac</a>
+      <nav class="nav-links" role="navigation" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="about.html">About</a>
+        <a href="zeke_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
+      </nav>
+    </div>
   </header>
-  <section class="projects-grid">
 
-    <div class="project-card">
-      <img src="assets/rsa-placeholder.jpg" alt="RSA Toolkit" />
-      <h3>RSA Cryptography Toolkit</h3>
-      <p>Implements modular exponentiation (FME), key generation (Euclidean Algorithm), and end-to-end message encoding/decoding.</p>
-      <a href="#" class ="github-link">GitHub Repo (placeholder)</a>
-    </div>
+  <!-- PROJECTS SECTION (put this in projects.html) -->
+  <main class="container projects-page">
+    <section class="projects-intro" data-animate="fade-in">
+      <h1>Projects</h1>
+      <p class="lead">Selected work that demonstrates algorithms, cryptography, and automation tooling.</p>
+    </section>
 
-    <div class="project-card">
-      <img src="assets/trie-placeholder.jpg" alt="Trie Autocomplete" />
-      <h3>Trie Word Prediction & Autocomplete Application</h3>
-      <p>A high-performance prefix tree implementation supporting autocomplete, search, word frequency, and predictive modeling.</p>
-      <a href="#" class ="github-link">GitHub Repo (placeholder)</a>
+    <section class="projects-grid" id="projects" data-animate="fade-in">
+      <!-- Card 1 -->
+      <article class="project-card" data-animate="slide-up">
+        <img class="card-img" src="https://picsum.photos/seed/rsa/800/450" alt="RSA Toolkit">
+        <div class="card-body">
+          <h3>RSA Cryptography Toolkit</h3>
+          <p>Implements fast modular exponentiation (FME), key generation (Euclidean Algorithm), and end-to-end encoding/decoding.</p>
+          <div class="card-footer">
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <a class="link" href="#">Read writeup</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="project-card" data-animate="slide-up">
+        <img class="card-img" src="https://picsum.photos/seed/trie/800/450" alt="Trie Autocomplete">
+        <div class="card-body">
+          <h3>Trie Word Prediction & Autocomplete</h3>
+          <p>High-performance prefix-tree implementation supporting autocomplete, search, word frequency, and predictive modeling.</p>
+          <div class="card-footer">
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <a class="link" href="#">Demo</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="project-card" data-animate="slide-up">
+        <img class="card-img" src="https://picsum.photos/seed/algo/800/450" alt="Algorithms">
+        <div class="card-body">
+          <h3>Algorithms Collection</h3>
+          <p>Collection of classic and custom algorithm implementations for study and benchmarking (C++ / Python).</p>
+          <div class="card-footer">
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <a class="link" href="#">Benchmarks</a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer" data-animate="fade-in">
+    <div class="container">
+      <div class="socials">
+        <a href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com/in/ezechiel-isaac" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <small>© <span id="year-2"></span> Zeke Isaac</small>
     </div>
-    
-  </section>
+  </footer>
+
 </body>
 </html>

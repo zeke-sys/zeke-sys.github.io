@@ -6,45 +6,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | Zeke Isaac</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="sub-header">
-    <h1>About Me</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="zeke-resume.pdf">Resume</a>
-    </nav>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Zeke Isaac</a>
+      <nav class="nav-links" role="navigation" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html" class="active">About</a>
+        <a href="zeke_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
+      </nav>
+    </div>
   </header>
 
-  <section class="about-section">
-    <img src="assets/profile.jpg" class="about-pic" alt="Profile" />
-    <p>
-      I am an IT Audit Manager and Computer Science student at the University of Colorado Boulder. I am transitioning into a career in software engineering, 
-      bringing 8+ years of experience in systems analysis, risk assessment, and process improvement. I completed an 18-week Front-End bootcamp and am now 
-      pursuing a bachelor's in Computer Science with a focus on software development, aiming to apply strong analytical and problem-solving skills in a hands-on 
-      engineering environment.
-    </p>
+  <!-- ABOUT SECTION -->
+  <main class="container about-page">
+    <section class="about-me" data-animate="fade-in">
+      <div class="about-grid">
+        <img class="about-pic" src="https://picsum.photos/seed/zeke2/300/300" alt="Zeke profile">
+        <div>
+          <h1>About Me</h1>
+          <p>
+            I am an IT Audit Manager and Computer Science student at the University of Colorado Boulder. I am transitioning into a career in software engineering, 
+            bringing 8+ years of experience in systems analysis, risk assessment, and process improvement. I completed an 18-week Front-End bootcamp two (2) years ago and am now 
+            pursuing a bachelor's in Computer Science with a focus on software development, aiming to apply strong analytical and problem-solving skills in a hands-on 
+            engineering environment.
+          </p>
+          <p><strong>Education:</strong> Computer Science — University of Colorado Boulder (in progress)</p>
+        </div>
+      </div>
+    </section>
 
-    <h2>Certifications</h2>
-    <ul>
-      <li>Certified Information Systems Security Professional (CISSP)</li>
-      <li>Certified Information Systems Auditor (CISA)</li>
-      <li>Certified Data Privacy Solutions Engineer (CDPSE)</li>
-      <li>Certified Information Systems Manager (CISM)</li>
-      <li>Certificate of Cloud Security Knowledge (CCSK)</li>
-      <li>Oracle Cloud Infrastructure (OCI) Foundations Certified Associate</li>
-      <li>ISO 27001 Lead Auditor - Information Security</li>
-    </ul>
+    <section class="certs" data-animate="fade-in">
+      <h2>Certifications</h2>
+      <ul>
+        <li>Certified Information Systems Security Professional (CISSP)</li>
+        <li>Certified Information Systems Auditor (CISA)</li>
+        <li>Certified Data Privacy Solutions Engineer (CDPSE)</li>
+        <li>Certified Information Systems Manager (CISM)</li>
+        <li>Certificate of Cloud Security Knowledge (CCSK)</li>
+        <li>Oracle Cloud Infrastructure (OCI) Foundations Certified Associate</li>
+        <li>ISO 27001 Lead Auditor - Information Security</li>
+      </ul>
+    </section>
 
-    <h2>Focus Areas</h2>
-    <ul>
-      <li>Security & IT Audit</li>
-      <li>Algorithm Design</li>
-      <li>Data Structures</li>
-      <li>Enterprise Systems Controls</li>
-      <li>Autormation & Analytics</li>
-    </ul>
-  </section>
+    <section class="timeline" data-animate="fade-in">
+      <h2>Experience</h2>
+      <ol>
+        <li><strong>Broadcom</strong> — IT Audit Manager</li>
+        <li><strong>Big 4 Consulting</strong> — Technology Risk Consultant</li>
+        <li><strong>Various</strong> — Coding projects & research</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" data-animate="fade-in">
+    <div class="container">
+      <div class="socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <small>© <span id="year-3"></span> Zeke Isaac</small>
+    </div>
+  </footer>
+
 </body>
 </html>

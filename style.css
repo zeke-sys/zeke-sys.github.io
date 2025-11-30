@@ -84,6 +84,30 @@ body{
 .about-pic{width:300px;height:300px;border-radius:18px;object-fit:cover;box-shadow:0 10px 30px rgba(2,6,23,0.55)}
 .certs ul{list-style:disc;margin-left:20px;color:var(--muted)}
 
+/* Light mode: About section text muted gray */
+body.light .about-page {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 44px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+}
+
+/* Making text fully readable */
+body.light .about-page,
+body.light .about-grid {
+    color: #000;
+}
+
+/* Ensure cert list doesn't stay muted/dark */
+body.light .certs ul {
+    color: #333;
+}
+
+/* Soften picture shadow so it’s not so heavy on light background */
+body.light .about-pic {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
 /* FOOTER */
 .site-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);margin-top:48px}
 .site-footer .socials{display:flex;gap:12px;justify-content:center;margin-bottom:8px}

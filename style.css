@@ -114,6 +114,23 @@ body.light .page-container img {
 .about-pic{width:300px;height:300px;border-radius:18px;object-fit:cover;box-shadow:0 10px 30px rgba(2,6,23,0.55)}
 .certs ul{list-style:disc;margin-left:20px;color:var(--muted)}
 
+.personal-photos{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+}
+.personal-photos img{
+    width:180px;
+    height:130px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+.personal-photos img:hover{
+    transform: scale(1.03);
+}
+
 /* FOOTER */
 .site-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);margin-top:48px}
 .site-footer .socials{display:flex;gap:12px;justify-content:center;margin-bottom:8px}

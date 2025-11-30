@@ -66,9 +66,31 @@ body{
 .intro{padding:36px 0}
 .banner-img{width:100%;border-radius:12px;margin-top:18px}
 
+/* ========== PAGE CONTAINER (Unified Light Mode) ========== */
+body.light .page-container {
+    background: rgba(255, 255, 255, 0.9); /* semi-transparent card */
+    padding: 44px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    transition: background 0.3s ease;
+}
+body.light .page-container,
+body.light .page-container h1,
+body.light .page-container h2,
+body.light .page-container h3,
+body.light .page-container p {
+    color: #555; /* muted gray across all pages */
+}
+body.light .page-container ul,
+body.light .page-container ol {
+    color: #666; /* slightly darker for lists */
+}
+body.light .page-container img {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-radius: 16px;
+}
+
 /* PROJECTS GRID */
-.projects-page{padding:44px 0}
-.projects-intro{margin-bottom:18px}
 .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .project-card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 30px rgba(2,6,23,0.55);transition:transform .25s,box-shadow .25s}
 .project-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(2,6,23,0.65)}
@@ -78,111 +100,10 @@ body{
 .card-body p{color:var(--muted);margin:0 0 12px}
 .card-footer{display:flex;gap:12px;align-items:center}
 
-/* HOME PAGE */
-
-/* Light mode: Home page container */
-body.light .home-page {
-    background: rgba(255, 255, 255, 0.9); /* semi-transparent card */
-    padding: 44px 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(6px); /* soft blur behind */
-    transition: background 0.3s ease;
-}
-
-/* Text readability */
-body.light .home-page,
-body.light .home-page h1,
-body.light .home-page h2,
-body.light .home-page h3,
-body.light .home-page p {
-    color: #555; /* muted gray like cert list */
-}
-
-/* Project cards inside home page */
-body.light .home-page .project-card {
-    background: rgba(255, 255, 255, 0.95);
-    color: #555;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-/* Hero text gradient or style stays same but ensure readability */
-body.light .home-page .hero h1,
-body.light .home-page .hero h2 {
-    color: #444; /* muted dark for headings */
-}
-
-/* Buttons (e.g., resume) stay visible */
-body.light .home-page .btn {
-    background: #000; 
-    color: #fff;
-}
-
 /* ABOUT */
-.about-page{padding:44px 0}
 .about-grid{display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:center}
 .about-pic{width:300px;height:300px;border-radius:18px;object-fit:cover;box-shadow:0 10px 30px rgba(2,6,23,0.55)}
 .certs ul{list-style:disc;margin-left:20px;color:var(--muted)}
-
-/* Light mode: About section text muted gray */
-body.light .about-page {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 44px 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(6px);
-}
-
-/* Making text fully readable */
-body.light .about-page,
-body.light .about-grid {
-    color: #000;
-}
-
-/* Ensure cert list doesn't stay muted/dark */
-body.light .certs ul {
-    color: #333;
-}
-
-/* Soften picture shadow so it’s not so heavy on light background */
-body.light .about-pic {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-/* LIGHT MODE: Projects Page */
-body.light .projects-page {
-    background: rgba(255, 255, 255, 0.9); /* semi-transparent container */
-    padding: 44px 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(6px); /* soft blur behind */
-    transition: background 0.3s ease;
-}
-
-/* Make all text readable */
-body.light .projects-page,
-body.light .projects-page h1,
-body.light .projects-page h2,
-body.light .projects-page h3,
-body.light .projects-page p {
-    color: #555; /* muted gray, like About section */
-}
-
-/* Project cards */
-body.light .projects-page .project-card {
-    background: rgba(255, 255, 255, 0.95);
-    color: #555;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-/* Images shadow softer in light mode */
-body.light .projects-page .card-img {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    border-radius: 16px;
-}
-
-/* Buttons visible */
-body.light .projects-page .btn {
-    background: #000;
-    color: #fff;
-}
 
 /* FOOTER */
 .site-footer{padding:28px 0;border-top:1px solid rgba(255,255,255,0.03);margin-top:48px}
@@ -192,8 +113,6 @@ body.light .projects-page .btn {
 /* ========== Animations ========== */
 [data-animate] { opacity:0; transform: translateY(14px); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.9,.3,1); will-change:transform,opacity; }
 [data-animate].in-view { opacity:1; transform: translateY(0); }
-
-/* slide-up is slightly stronger */
 [data-animate="slide-up"]{ transform: translateY(26px); }
 [data-animate="slide-up"].in-view{ transform: translateY(0); }
 
@@ -214,3 +133,5 @@ body.light .projects-page .btn {
 
 /* small polish */
 a.link{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* ========== Page-specific containers (apply .page-container in HTML) ========== */

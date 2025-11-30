@@ -1,34 +1,43 @@
-// ─────────────────────────────────────────────
-// Theme + Animations Script
-// ─────────────────────────────────────────────
+// theme + animations script
 
+// --- Theme toggle with localStorage persistence ---
 const body = document.body;
+const themeToggleButtons = document.querySelectorAll('#theme-toggle');
 const YEAR_IDS = ['year', 'year-2', 'year-3'];
 
-// ─── Year Setter ─────────────────────────────
-(function setYears() {
-    const year = new Date().getFullYear();
+// set initial year(s)
+function setYears(){
+    const y = new Date().getFullYear();
     YEAR_IDS.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.textContent = year;
+        if(el) el.textContent = y;
     });
-})();
-
-// ─── Theme Handling ──────────────────────────
-function applyTheme(theme) {
-    body.classList.toggle('light', theme === 'light');
 }
 
-function getStoredTheme() {
-    try { return localStorage.getItem('theme'); }
-    catch { return null; }
+setYears();
+
+// load saved theme from localStorage
+function applyTheme(theme) { // 'light' or 'dark'
+    if(theme === 'light') {
+        body.classList.add('light');
+    } else {
+        body.classList.remove('light'); // default to dark
+    }
+}
+
+function getStoredTheme() { // returns 'light', 'dark', or null
+    try {
+        return localStorage.getItem('theme');
+    } catch(e) {
+        return null;
+    }
 }
 
 function storeTheme(theme) {
-    try { localStorage.setItem('theme', theme); }
-    catch {}
+    try { localStorage.setItem('theme', theme); } catch(e) {}
 }
 
+// toggle theme and update localStorage
 function toggleTheme() {
     const current = getStoredTheme() || (body.classList.contains('light') ? 'light' : 'dark');
     const next = current === 'light' ? 'dark' : 'light';
@@ -36,49 +45,45 @@ function toggleTheme() {
     storeTheme(next);
 }
 
-// initialize theme
-(function initTheme() {
+// initialize theme from storage or system preference
+(function initTheme(){
     const stored = getStoredTheme();
-    if (stored) {
+    if(stored) {
         applyTheme(stored);
-        return;
+    } else {
+        // default to system preference
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        applyTheme(prefersLight ? 'light' : 'dark');
     }
-
-    // fallback to system preference
-    const systemPrefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
-    applyTheme(systemPrefersLight ? 'light' : 'dark');
 })();
 
-// ─── DOM Ready ───────────────────────────────
+// attach event listeners to all theme toggle buttons (header present on multiple pages)
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#theme-toggle').forEach(btn => {
+        btn.addEventListener('click', toggleTheme);
+    });
 
-    // theme toggle buttons
-    document.querySelectorAll('#theme-toggle').forEach(btn =>
-        btn.addEventListener('click', toggleTheme)
-    );
-
-    // scroll animations
+    // InsersectionObserver for scroll animations
     const animateEls = document.querySelectorAll('[data-animate]');
-
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, obs) => {
+    if('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if(entry.isIntersecting) {
                     entry.target.classList.add('in-view');
                     obs.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.12 });
-
-        animateEls.forEach(el => observer.observe(el));
+        }, { threshold: 0.12});
+        animateEls.forEach(el => io.observe(el));
     } else {
+        // fallback: just add all
         animateEls.forEach(el => el.classList.add('in-view'));
     }
 
-    // keyboard accessibility (Enter to click)
+    // small: add hover focus styles for keyboard users
     document.querySelectorAll('.project-card, .btn').forEach(el => {
-        el.addEventListener('keydown', e => {
-            if (e.key === 'Enter') el.click();
+        el.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') el.click();
         });
     });
 });

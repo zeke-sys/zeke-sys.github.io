@@ -124,7 +124,7 @@ body.light .page-container img {
     margin-top: 20px;
 }
 
-#trie-iput {
+#trie-input {
     width: 100%;
     padding: 10px 15px;
     font-size: 1rem;
@@ -162,6 +162,55 @@ body.light .page-container img {
 .suggestions .no-results {
     opacity: 0.6;
     cursor: default;
+}
+
+.trie-visual {
+    margin-top: 40px;
+    text-align: center;
+}
+.trie-svg {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+.node {
+    fill: var(--accent);
+    opacity: 0.85;
+}
+.edge {
+    stroke: var(--accent);
+    stroke-width: 2px;
+    opacity: 0.5;
+}
+.label {
+    fill: var(--text);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-anchor: middle;
+    pointer-events: none;
+}
+.word {
+    fill: var(--text);
+    font-size: 0.85rem;
+    text-anchor: middle;
+}
+
+.trie-diagram-container {
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.trie-diagram-wrapper {
+    overflow-x: auto;       /* for horizontal scrolling */
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--card);
+}
+
+#trie-svg {
+    width: max-content;     /* for dynamic width based on nodes */
+    height: 400px;          /* adjust height as needed */
 }
 
 /* ABOUT */

@@ -106,6 +106,85 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// drawing the trie structure in SVG
+const svgNS = "http://www.w3.org/2000/svg";
+
+function drawTrieSVG(trie, svgId) {
+    const svg = document.getElementById(svgId);
+    svg.innerHTML = ""; // Clear previous
+
+    const nodeRadius = 18;
+    const horizontalSpacing = 60;
+    const verticalSpacing = 60;
+
+    // Recursive function to layout nodes
+    function layout(node, depth = 0, x = 0, positions = []) {
+        let childrenKeys = Object.keys(node.children);
+        if (childrenKeys.length === 0) {
+            positions.push({node, x, depth});
+            return positions;
+        }
+
+        let childX = x;
+        for (let key of childrenKeys) {
+            positions = layout(node.children[key], depth + 1, childX, positions);
+            childX += horizontalSpacing;
+        }
+        positions.push({node, x: (x + childX - horizontalSpacing)/2, depth});
+        return positions;
+    }
+
+    const positions = layout(trie.root);
+
+    // Draw lines first
+    positions.forEach(pos => {
+        const parent = pos.node;
+        const parentPos = pos;
+        for (let key in parent.children) {
+            const childNode = parent.children[key];
+            const childPos = positions.find(p => p.node === childNode);
+            if (childPos) {
+                const line = document.createElementNS(svgNS, 'line');
+                line.setAttribute('x1', parentPos.x);
+                line.setAttribute('y1', parentPos.depth * verticalSpacing + nodeRadius);
+                line.setAttribute('x2', childPos.x);
+                line.setAttribute('y2', childPos.depth * verticalSpacing - nodeRadius);
+                line.setAttribute('stroke', '#4da6ff');
+                line.setAttribute('stroke-width', 2);
+                svg.appendChild(line);
+            }
+        }
+    });
+
+    // Draw nodes
+    positions.forEach(pos => {
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', pos.x);
+        circle.setAttribute('cy', pos.depth * verticalSpacing);
+        circle.setAttribute('r', nodeRadius);
+        circle.setAttribute('fill', pos.node.isEnd ? '#4da6ff' : '#11141a');
+        circle.setAttribute('stroke', '#4da6ff');
+        circle.setAttribute('stroke-width', 2);
+        svg.appendChild(circle);
+
+        // Label (use letters if not root)
+        if (pos.node !== trie.root) {
+            const letter = Object.entries(pos.node.children).find(([k, n]) => n === pos.node);
+            const text = document.createElementNS(svgNS, 'text');
+            text.setAttribute('x', pos.x);
+            text.setAttribute('y', pos.depth * verticalSpacing + 5);
+            text.setAttribute('fill', '#fff');
+            text.setAttribute('font-size', '12');
+            text.setAttribute('text-anchor', 'middle');
+            text.textContent = letter ? letter[0] : '';
+            svg.appendChild(text);
+        }
+    });
+}
+
+// Call after Trie is populated
+drawTrieSVG(trie, 'trie-svg');
+
 // keyboard navigation for suggestions
 let selectedIndex = -1;
 

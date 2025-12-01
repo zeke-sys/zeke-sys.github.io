@@ -137,18 +137,22 @@ body.light .page-container img {
     display: none; /* hidden by default */
     position: fixed;
     z-index: 1000;
-    top: 0; left: 0;
+    inset: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.85);
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-.lightbox-content {
-    max-width: 90%;
-    max-height: 90%;
+.lightbox-img {
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
     border-radius: 10px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    object-fit: contain;
 }
 
 .lightbox-close {
@@ -164,6 +168,34 @@ body.light .page-container img {
 
 .lightbox-close:hover {
     color: #ff6b6b; /* change color on hover */
+}
+
+/* Contact Invitation */
+.contact-invitation {
+    padding: 40px 0 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 40px;
+}
+.contact-invitation p {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--accent);
+    opacity: 0.9;
+    display: inline-block;
+    position: relative;
+    cursor: default;
+}
+/* Subtle underline animation */
+.contact-invitation p::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.25s ease;
+    border-radius: 2px;
 }
 
 /* FOOTER */
@@ -191,10 +223,19 @@ body.light .page-container img {
   .nav-links a{padding:6px 8px}
   .hero{padding:36px 0}
   .profile-img{width:220px;height:220px}
+
+  /* Lightbox adjustments for mobile */
+  .lightbox-img {
+    max-width: 95vw;
+    max-height: 80vh;
+  }
+  .lightbox {
+    padding: 10px;
+  }
   .lightbox-close {
     font-size: 2rem;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
   }
 }
 

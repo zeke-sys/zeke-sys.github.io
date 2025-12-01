@@ -97,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // lightbox functionality for project images
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.querySelector('.lightbox-content');
+    const lightboxImg = document.querySelector('.lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');
 
-    document.querySelectorAll('.lightbox-img').forEach(img => {
+    document.querySelectorAll('.personal-photos img').forEach(img => {
         img.addEventListener('click', () => {
             lightbox.style.display = 'flex';
             lightboxImg.src = img.src;
-            lightbox.Img.alt = img.alt;
+            lightboxImg.alt = img.alt;
         });
     });
 

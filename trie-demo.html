@@ -1,0 +1,54 @@
+<!-- trie-demo.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trie Autocomplete Demo | Zeke Isaac</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="trie-demo.js"></script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header class ="navbar" role="banner">
+        <div class="container nav-inner">
+            <a class="brand" href="index.html">Zeke Isaac</a>
+
+            <nav class="nav-links" role="navigation" aria-label="Main">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+                <a href="zeke-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- TRIE DEMO SECTION -->
+    <main class="container page-container" data-animate="fade-in">
+        <section class="demo-section">
+            <h1>Trie Autocomplete Demo</h1>
+            <p class="lead">A browser-based version of my C++ Trie Autocomplete project.</p>
+
+            <div class="autocomplete-box">
+                <input id="trie-input" type="text" placeholder="Start typing..." autocomplete="off" />
+                <ul id="suggestions" class="suggestions"></ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="socials">
+                <a href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://linkedin.com/in/ezechiel-isaac-589149115" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+            <small>© <span id="year-2"></span> Zeke Isaac</small>
+        </div>
+    </footer>
+</body>
+</html>
+
+<!-- End of trie-demo.html -->

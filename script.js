@@ -25,6 +25,7 @@ function applyTheme(theme) { // 'light' or 'dark'
     }
 }
 
+// retrieve stored theme preference
 function getStoredTheme() { // returns 'light', 'dark', or null
     try {
         return localStorage.getItem('theme');
@@ -33,6 +34,7 @@ function getStoredTheme() { // returns 'light', 'dark', or null
     }
 }
 
+// store theme preference
 function storeTheme(theme) {
     try { localStorage.setItem('theme', theme); } catch(e) {}
 }
@@ -100,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxImg = document.querySelector('.lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');
 
+    // open lightbox on image click
     document.querySelectorAll('.personal-photos img').forEach(img => {
         img.addEventListener('click', () => {
             lightbox.style.display = 'flex';
@@ -119,3 +122,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
 });
+
+// end of theme + animations script

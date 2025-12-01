@@ -7,6 +7,7 @@
     <title>Trie Autocomplete Demo | Zeke Isaac</title>
     <link rel="stylesheet" href="style.css" />
     <script defer src="trie-demo.js"></script>
+    <script defer src="script.js"></script>
 </head>
 
 <body>
@@ -33,7 +34,7 @@
 
             <div class="autocomplete-box">
                 <input id="trie-input" type="text" placeholder="Start typing..." autocomplete="off" />
-                <ul id="suggestions" class="suggestions"></ul>
+                <ul id="suggestions" class="suggestions" role="listbox" aria-live="polite"></ul>
             </div>
 
             <div class="trie-diagram-container" data-animate="fade-in">
@@ -43,78 +44,6 @@
                 </div>
             </div>
 
-            <section class="trie-visual">
-                <h2>Trie Structure (Simplified View)</h2>
-
-                <svg
-                    class="trie-svg"
-                    viewBox="0 0 800 420"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <!-- Root Node -->
-                    <circle cx="400" cy="40" r="22" class="node"/>
-                    <text x="400" y="46" class="label">∅</text>
-
-                    <!-- A subtree -->
-                    <line x1="400" y1="62" x2="250" y2="140" class="edge"/>
-                    <circle cx="250" cy="140" r="22" class="node"/>
-                    <text x="250" y="146" class="label">a</text>
-
-                    <line x1="250" y1="162" x2="180" y2="240" class="edge"/>
-                    <circle cx="180" cy="240" r="22" class="node"/>
-                    <text x="180" y="246" class="label">p</text>
-
-                    <line x1="180" y1="262" x2="120" y2="340" class="edge"/>
-                    <circle cx="120" cy="340" r="22" class="node"/>
-                    <text x="120" y="346" class="label">p</text>
-
-                    <line x1="120" y1="362" x2="90"  y2="410" class="edge"/>
-                    <text x="90" y="410" class="word">app</text>
-
-                    <line x1="120" y1="362" x2="150" y2="410" class="edge"/>
-                    <text x="150" y="410" class="word">apple</text>
-
-                    <line x1="180" y1="262" x2="240" y2="340" class="edge"/>
-                    <circle cx="240" cy="340" r="22" class="node"/>
-                    <text x="240" y="346" class="label">r</text>
-                    <text x="240" y="390" class="word">approve</text>
-
-                    <!-- B subtree -->
-                    <line x1="400" y1="62" x2="400" y2="140" class="edge"/>
-                    <circle cx="400" cy="140" r="22" class="node"/>
-                    <text x="400" y="146" class="label">b</text>
-
-                    <line x1="400" y1="162" x2="350" y2="240" class="edge"/>
-                    <circle cx="350" cy="240" r="22" class="node"/>
-                    <text x="350" y="246" class="label">a</text>
-
-                    <line x1="350" y1="262" x2="310" y2="340" class="edge"/>
-                    <circle cx="310" cy="340" r="22" class="node"/>
-                    <text x="310" y="346" class="label">n</text>
-
-                    <text x="310" y="390" class="word">banana</text>
-                    <text x="390" y="390" class="word">band</text>
-                    <text x="470" y="390" class="word">banter</text>
-
-                    <!-- C subtree -->
-                    <line x1="400" y1="62" x2="550" y2="140" class="edge"/>
-                    <circle cx="550" cy="140" r="22" class="node"/>
-                    <text x="550" y="146" class="label">c</text>
-
-                    <line x1="550" y1="162" x2="520" y2="240" class="edge"/>
-                    <circle cx="520" cy="240" r="22" class="node"/>
-                    <text x="520" y="246" class="label">a</text>
-
-                    <line x1="520" y1="262" x2="520" y2="340" class="edge"/>
-                    <circle cx="520" cy="340" r="22" class="node"/>
-                    <text x="520" y="346" class="label">t</text>
-
-                    <text x="520" y="390" class="word">cat</text>
-                    <text x="600" y="390" class="word">cater</text>
-                    <text x="680" y="390" class="word">caterpillar</text>
-
-                </svg>
-            </section>
         </section>
     </main>
 

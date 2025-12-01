@@ -8,6 +8,9 @@
   --glass: rgba(255,255,255,0.03);
   --radius: 12px;
   --container: 1100px;
+  --card-border: rgba(255,255,255,0.6);
+  --card-bg: #11141a;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 body.light {
@@ -17,6 +20,9 @@ body.light {
   --text: #0b1220;
   --accent: #0b76ff;
   --glass: rgba(0,0,0,0.03);
+  --card-border: rgba(0,0,0,0.8);
+  --card-bg: #ffffff;
+  --shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
 /* ========== Basic Layout ========== */
@@ -136,6 +142,10 @@ body.light .page-container img {
 }
 
 .suggestions {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
     list-style: none;
     padding: 0;
     margin: 6px 0 0 0;
@@ -146,6 +156,7 @@ body.light .page-container img {
     max-height: 240px;
     overflow-y: auto;
     box-shadow: var(--shadow);
+    z-index: 20;
 }
 
 .suggestions li {
@@ -173,22 +184,7 @@ body.light .page-container img {
     height: auto;
     margin-top: 20px;
 }
-.node {
-    fill: var(--accent);
-    opacity: 0.85;
-}
-.edge {
-    stroke: var(--accent);
-    stroke-width: 2px;
-    opacity: 0.5;
-}
-.label {
-    fill: var(--text);
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-anchor: middle;
-    pointer-events: none;
-}
+
 .word {
     fill: var(--text);
     font-size: 0.85rem;

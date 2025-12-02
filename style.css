@@ -4,7 +4,7 @@
   --card: #11141a;
   --muted: #94a3b8;
   --text: #e6eef8;
-  --accent: #4da6ff;
+  --accent: #4f46e5;
   --glass: rgba(255,255,255,0.03);
   --radius: 12px;
   --container: 1100px;
@@ -243,6 +243,10 @@ body.light .suggestions li.active {
     filter: drop-shadow(0 0 8px var(--accent));
     opacity: 1;
     transition: all 0.18s ease-out;
+}
+
+.highlighted-node {
+    filter: drop-shadow(0 0 4px var(--accent));
 }
 
 /* ABOUT */

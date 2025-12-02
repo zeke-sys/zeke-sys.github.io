@@ -419,28 +419,34 @@ if (input) {
     input.addEventListener('input', () => { // on input change
         const query = input.value.trim().toLowerCase();
 
-        // reset all nodes + edges to base color
-        nodeElementsMap.forEach((data, node) => {
-            if (!data || !data.circle) return;
-            data.circle.setAttribute('fill', data.circle.__trie_node_ref && data.circle.__trie_node_ref.isEnd ? '#4da6ff' : '#11141a');
-            if (data.parentLine) data.parentLine.setAttribute('stroke', '#4da6ff'); // rest edge
-        });
+        // re-render svg (weights, counts, layout may change)
+        drawTrieSVG(trie, 'trie-svg');
 
         if (!query) return;
-
+        highlightPrefix(query);
+    });
+    // highlight all nodes & edges matching the prefix
+    function highlightPrefix(prefix) {
         let node = trie.root;
-        for (let char of query) {
+        const accent = getAccentColor();
+
+        for (const char of prefix) {
             if (!node.children[char]) return;
             node = node.children[char];
 
-            const nodeData = nodeElementsMap.get(node);
-            if (nodeData) {
-                const accent = getAccentColor();
-                nodeData.circle.setAttribute('fill', accent); // highlight node
-                if (nodeData.parentLine) nodeData.parentLine.setAttribute('stroke', accent); // highlight edge
+            const el = nodeElementsMap.get(node);
+            if (!el) continue;
+
+            // applying highlight styling
+            el.circle.classList.add("highlighted-node");
+            if (el.parentLine) {
+                el.parentLine.classList.add("highlighted-edge");
             }
-        }
-    });
+            // override with dynamic color
+            el.circle.style.fill = accent;
+            if (el.parentLine) el.parentLine.style.stroke = accent;
+        }   
+    }
 }
 
 // 7. KEYBOARD NAVIGATION FOR SUGGESTIONS

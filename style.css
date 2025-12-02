@@ -216,18 +216,32 @@ body.light .page-container img {
     transition: opacity 0.6s ease, transform 0.25s ease; /* smooth fade-in and movement */
 }
 
+.visible {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
 .trie-node.visible, .trie-edge.visible {
     opacity: 1; /* show nodes and edges */
 }
 
 .pulse-highlight {
-    animation: pulse 0.8s ease-out forwards;
+    animation: pulse 0.6s ease-out;
+    stroke: #4CAF50 !important;
+    stroke-width: 4px !important;
+    filter: drop-shadow(0 0 6px rgba(76, 175, 80, 0.7));
 }
 
 @keyframes pulse {
-    0% { stroke-width: 2; filter: drop-shadow(0 0 0px var(--accent)); }
-    50% { stroke-width: 4; filter: drop-shadow(0 0 6px var(--accent)); }
-    100% { stroke-width: 2; filter: drop-shadow(0 0 2px var(--accent)); }
+    0% { stroke-width: 2px; filter: drop-shadow(0 0 0px var(--accent)); }
+    50% { stroke-width: 4px; filter: drop-shadow(0 0 6px var(--accent)); }
+    100% { stroke-width: 2px; filter: drop-shadow(0 0 2px var(--accent)); }
+}
+
+.active-highlight {
+    stroke: #ff9800 !important;
+    stroke-width: 5px !important;
+    filter: drop-shadow(0 0 10px rgba(255, 152, 0, 0.8));
 }
 
 /* ABOUT */

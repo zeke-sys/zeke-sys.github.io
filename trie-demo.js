@@ -245,7 +245,7 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
             const { positions: childPositions, width: childWidth } = layout(child, depth + 1, childX, key);
 
             positions.push(...childPositions);
-            childX += childWidth * 70; // horizontalSpacing
+            childX += childWidth * horizontalSpacing; // horizontalSpacing
             totalWidth += childWidth;
         });
 
@@ -264,7 +264,7 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
         placeholder.setAttribute('x', 20);
         placeholder.setAttribute('y', 30);
         placeholder.setAttribute('fill', '#fff');
-        placeholder.setAttribute('No nodes to render');
+        placeholder.textContent= 'No nodes to render';
         svg.appendChild(placeholder);
         return;
     }
@@ -371,7 +371,7 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
 
 // Highlighting, keyboard navigation, and load
 function getAccentColor() {
-    const raw = getComputedStyle(documentElement).getPropertyValue('--accent') || '#ff6b6b';
+    const raw = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#ff6b6b';
     return String(raw).trim() || '#ff6b6b';
 }
 

@@ -168,6 +168,7 @@ body.light .page-container img {
 
 .suggestions li:hover, .suggestions li.active {
     background: rgba(255, 255, 255, 0.05); /* dark mode hover */
+    color: white;
 }
 
 body.light .suggestions li:hover,

@@ -197,7 +197,7 @@ body.light .page-container img {
 }
 
 .trie-diagram-wrapper {
-    overflow-x: auto;       /* for horizontal scrolling */
+    overflow-x: auto;  /* for horizontal scrolling */
     border: 1px solid rgba(255,255,255,0.1);
     padding: 12px;
     border-radius: 12px;
@@ -205,8 +205,10 @@ body.light .page-container img {
 }
 
 #trie-svg {
-    width: max-content;     /* for dynamic width based on nodes */
-    height: 400px;          /* adjust height as needed */
+    display: block;
+    width: auto;   /* for dynamic width based on nodes */
+    min-width: 700px;
+    height: 400px;   /* adjust height as needed */
 }
 
 .trie-node, .trie-edge {

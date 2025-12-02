@@ -103,6 +103,8 @@ function getWordFromNode(targetNode, root) { // DFS to find path from root to ta
 
 const trie = new Trie();
 
+// ensure edgeElements exists (used in draw function)
+
 // Sample words with varying frequencies
 const words = [
     "apple", "app", "application", "apply", "approve",
@@ -201,13 +203,14 @@ const edgeElements = []; // store edge elements for animation
 
 function drawTrieSVG(trie, svgId) { // render trie structure as SVG
     const svg = document.getElementById(svgId);
+    if (!svg) return; // guard (SVG missing)
     svg.innerHTML = "";
     nodeElementsMap.clear();
     edgeElements.length = 0;
 
     const nodeRadius = 18;
-    const horizontalSpacing = 60;
-    const verticalSpacing = 60;
+    const horizontalSpacing = 70;
+    const verticalSpacing = 70;
 
     // Calculate layout positions
     function layout(node, depth = 0, x = 0, parentLetter = '', positions = []) {
@@ -221,10 +224,12 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
         let startX = x;
         let childX = x;
 
-        for (let key of keys) {
+        keys.sort();
+
+        keys.forEach(key => {
             positions = layout(node.children[key], depth + 1, childX, key, positions);
             childX += horizontalSpacing;
-        }
+        });
 
         const midX = (startX + childX - horizontalSpacing) / 2;
         positions.push({ node, x: midX, depth, letter: parentLetter });
@@ -234,14 +239,37 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
 
     const positions = layout(trie.root); // get all node positions
 
-    // Size SVG
-    const maxX = Math.max(...positions.map(p => p.x)) + nodeRadius * 3;
-    const maxDepth = Math.max(...positions.map(p => p.depth)) + 1;
+    // fallbadck if positions empty
+    if (!positions || positions.length === 0) {
+        // create placeholder text
+        const placeholder = document.createElementNS(svgNS, 'text');
+        placeholder.setAttribute('x', 20);
+        placeholder.setAttribute('y', 30);
+        placeholder.setAttribute('fill', '#fff');
+        placeholder.setAttribute('No nodes to render');
+        svg.appendChild(placeholder);
+        return;
+    }
 
-    svg.setAttribute('width', maxX);
-    svg.setAttribute('height', maxDepth * verticalSpacing + nodeRadius * 2);
+    // compute extents
+    const xs = positions.map(p => Number(p.x) || 0);
+    const depths = positions.map(p => Number(p.depth) || 0);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const maxDepth = Math.max(...depths);
 
-    // Draw edges
+    // padding
+    const pad = nodeRadius * 3;
+    const svgWidth = Math.max(800, Math.ceil(maxX - minX + pad * 2));
+    const svgHeight = Math.ceil((maxDepth + 1) * verticalSpacing + pad);
+
+    // set viewBox (scales nicely) and explicit height so wrapper can scroll horizontally
+    svg.setAttribute('viewBox', `${minX - pad} 0 ${svgWidth} ${svgHeight}`);
+    svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+    svg.style.width = svgWidth + 'px'; // explicit css width so wrapper's horizontal scroll works
+    svg.style.height = svgHeight + 'px';
+
+    // Draw edges first (so nodes sit on top)
     positions.forEach(pos => {
         for (let key in pos.node.children) { // draw line to each child
             const child = pos.node.children[key];
@@ -257,7 +285,7 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
             line.setAttribute('stroke', '#4da6ff');
             line.setAttribute('stroke-width', 2);
 
-            line.classList("trie-edge");
+            line.classList.add("trie-edge");
             svg.appendChild(line);
             edgeElements.push(line); // store for animation
         }
@@ -268,17 +296,21 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
         const { node, x, depth, letter } = pos;
 
         const circle = document.createElementNS(svgNS, 'circle');
+
+        // scale radius by weight (safe numeric fallback)
+        const r = nodeRadius + (Number(node.weight) || 0) * 2; // size by weight
         circle.setAttribute('cx', x);
         circle.setAttribute('cy', depth * verticalSpacing);
-
-        const r = nodeRadius + node.weight * 2; // size by weight
         circle.setAttribute('r', r);
 
         circle.setAttribute('fill', node.isEnd ? '#4da6ff' : '#11141a');
         circle.setAttribute('stroke', '#4da6ff');
         circle.setAttribute('stroke-width', 2);
-
         circle.classList.add("trie-node"); // for animation
+
+        // attach node reference for later highlight (store node ref on element)
+        circle.__trie_node_ref = node;
+
         svg.appendChild(circle);
 
         // Letter label
@@ -292,17 +324,17 @@ function drawTrieSVG(trie, svgId) { // render trie structure as SVG
 
         svg.appendChild(text);
 
-        // Tooltip
+        // Tooltip for end nodes
         if (node.isEnd) {
             const title = document.createElementNS(svgNS, 'title');
-            title.textContent = node.path; // use stored path (this becomes O(1) and is better for larger tries as opposed to O(N) DFS search)
+            title.textContent = node.path || getWordFromNode(node, trie.root) || ''; // use stored path (this becomes O(1) and is better for larger tries as opposed to O(N) DFS search)
             circle.appendChild(title);
         }
 
         nodeElementsMap.set(node, circle); // map node to its circle element
     });
 
-    // animate nodes and edges
+    // trigger fade-in of nodes + edges (css classes)
     requestAnimationFrame(() => {
         document.querySelectorAll('.trie-node').forEach(n => n.classList.add('visible'));
         document.querySelectorAll('.trie-edge').forEach(e => e.classList.add('visible'));

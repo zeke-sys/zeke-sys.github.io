@@ -101,6 +101,7 @@ body{
 }
 .btn.secondary:hover{
     background:rgba(255,255,255,0.20); /* made this clearer */
+    color: var(--accent);
 }
 
 /* INTRO */
@@ -455,6 +456,25 @@ body.light .suggestions li.active {
     margin-left: auto;
     padding: 4px 10px;
   }
+}
+
+/* Light-Mode Menu */
+body.light .nav-links {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(0,0,0,0.08)
+}
+
+body.light .nav-links a,
+body.light .nav-links button {
+    color: #333; /* dark text for readability */
+}
+
+body.light .nav-links a:hover,
+body.light .nav-links button:hover {
+    background: rgba(0,0,0,0.06); /* light gray hover */
+    color: #000;
 }
 
 @media (max-width: 480px) {

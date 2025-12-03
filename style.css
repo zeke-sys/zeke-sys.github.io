@@ -56,12 +56,13 @@ body{
   border-bottom:1px solid rgba(255,255,255,0.03);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
-.brand{font-weight:700;color:var(--text);text-decoration:none;font-size:1.1rem}
+.brand{font-weight:700;color:var(--text);text-decoration:none;font-size:1.1rem;white-space: nowrap;}
 .nav-links{display:flex;gap:14px;align-items:center}
 .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .18s}
 .nav-links a:hover{color:var(--text);background:var(--glass)}
 .nav-links a.active{color:var(--accent);font-weight:600}
 .theme-btn{background:none;border:1px solid rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer}
+
 
 .logo {
     margin-right: 6px;
@@ -392,6 +393,9 @@ body.light .suggestions li.active {
         padding: 12px 14px;
     }
     .brand {
+        font-size: 0.95rem;
+    }
+    .logo {
         font-size: 1rem;
     }
 }

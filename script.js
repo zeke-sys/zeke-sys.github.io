@@ -123,4 +123,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
+// highlight active nav link
+const current = window.location.pathname.split("/").pop();
+const page = current === "" ? "index.html" : current;
+
+document.querySelectorAll(".nav-links a").forEach(a => {
+    if (a.getAttribute("href") === page) {
+        a.classList.add("active");
+    }
+});
+
 // end of theme + animations script

@@ -486,11 +486,18 @@ body.light .nav-inner {
 }
 
 body:not(.light) .nav-links {
-    background: rgba(20,20,30,0.4);
+    background: rgba(255, 255, 255, 0.03); /* soft transparent */
     backdrop-filter: blur(8px);
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.08);
     padding: 6px 12px;
+}
+
+body:not(.light) .nav-inner {
+    background: rgba(255, 255, 255, 0.025); /* semi transparent */
+    padding: 10px 14px;
+    border-radius: 16px;
+    backdrop-filter: blur(6px);
 }
 
 body.light .nav-links a,

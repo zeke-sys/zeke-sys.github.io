@@ -162,6 +162,12 @@ if (!input) {
 
 if (input) {
     input.addEventListener('input', () => { // on input change
+        // Tracking typing into the Trie box
+        gtag('event', 'trie_type', {
+            event_category: 'trie_demo',
+            event_label: 'User typed in autocomplete box'
+        });
+
         const query = input.value.trim().toLowerCase();
 
         suggestions.innerHTML = "";
@@ -184,6 +190,12 @@ if (input) {
             li.innerHTML = `<strong>${query}</strong>${word.slice(query.length)}`;
 
             li.addEventListener("click", () => {
+                // Tracking suggestion click analytics
+                gtag('event', 'trie_suggestion_click', {
+                    event_category: 'trie_demo',
+                    event_label: word
+                });
+
                 // increase weight for clicked word boosting future suggestions
                 const node = trie.getNode(word);
                 if (node) node.weight = (node.weight || 0) + 1; // increment weight to boost future suggestions
@@ -377,6 +389,12 @@ function getAccentColor() {
 
 // highlight path for a given word: pulse nodes and color edges
 function highlightWordInSVG(word) {
+    // Tracking highlight analytics
+    gtag('event', 'trie_highlight', {
+        event_category: 'trie_demo',
+        event_label: word
+    });
+    
     const accent = getAccentColor();
 
     // clear previous animation classes quickly
@@ -447,7 +465,7 @@ if (input) {
                 if (nodeData.parentLine) nodeData.parentLine.setAttribute('stroke', accent);
             }
         }
-    });    
+    });  
 }
 
 // 7. KEYBOARD NAVIGATION FOR SUGGESTIONS

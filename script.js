@@ -150,4 +150,24 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// Tracking Resume Button Click
+document.querySelectorAll('a[href="zeke-resume.pdf"]').forEach(btn => {
+    btn.addEventListener("click", () => {
+        gtag('event', 'resume_click', {
+            event_category: 'engagement',
+            event_label: 'Resume PDF'
+        });
+    });
+});
+
+// Tracking GitHub Repo Clicks
+document.querySelectorAll('a[href*="github.com"]').forEach(link => {
+    link.addEventListener("click", () => {
+        gtag('event', 'github_repo_click', {
+            event_category: 'engagement',
+            event_label: link.href
+        });
+    });
+});
+
 // end of theme + animations script

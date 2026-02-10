@@ -106,7 +106,20 @@ body{
 }
 
 /* HERO */
-.hero{padding:56px 0;display:flex;align-items:center}
+.hero{padding:56px 0;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero::before {
+    content: "ZI";
+    position: absolute;
+    right: -20px;
+    top: -40px;
+    font-size: 9rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: rgba(15,23,42,0.25);
+    opacity: 0.12;
+    pointer-events: none;
+    user-select: none;
+}
 .hero-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center}
 .profile-img{width:300px;height:300px;border-radius:18px;object-fit:cover;border:3px solid rgba(77,166,255,0.12);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
 .hero h1{font-size:2.1rem;margin:0 0 12px}
@@ -126,6 +139,43 @@ body{
 .btn.secondary:hover{
     background:rgba(255,255,255,0.20); /* made this clearer */
     color: var(--accent);
+}
+
+/* Adjust hero watermark visibility in dark mode */
+body:not(.light) .hero::before {
+    color: rgba(148,163,184,0.45);
+    opacity: 0.16;
+}
+
+/* Accessible focus styles */
+.nav-links a:focus-visible,
+.btn:focus-visible,
+.filter-pill:focus-visible,
+.social-link:focus-visible,
+.theme-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 16px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #f9fafb;
+    text-decoration: none;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.6);
+    transition: top 0.15s ease, opacity 0.15s ease;
+    opacity: 0;
+    z-index: 1001;
+}
+
+.skip-link:focus-visible {
+    top: 12px;
+    opacity: 1;
 }
 
 /* Home stats + featured work */
@@ -253,7 +303,6 @@ body.light .stat-number {
     color: var(--muted);
     margin: 4px 0 14px;
     font-size: 0.98rem;
-    max-width: 700px;
 }
 
 .about-details {
@@ -276,6 +325,74 @@ body.light .stat-number {
     margin: 0;
     padding-left: 18px;
     color: var(--muted);
+}
+
+/* Experience timeline – visual vertical line and markers */
+.timeline {
+    position: relative;
+    padding-left: 22px;
+}
+
+.timeline ul {
+    position: relative;
+}
+
+.timeline ul::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: rgba(148, 163, 184, 0.35);
+}
+
+.timeline li {
+    position: relative;
+    padding-left: 8px;
+    margin: 0 0 8px;
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
+}
+
+/* Certifications – compact badge layout to reduce visual wall of text */
+.certs ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.certs li {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    font-size: 0.85rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.42), transparent 55%);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.55);
+    backdrop-filter: blur(10px);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.certs li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(15,23,42,0.75);
+    border-color: rgba(59,130,246,0.85);
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.65), transparent 55%);
 }
 
 .personal {
@@ -308,15 +425,53 @@ body.light .page-container img {
     border-radius: 16px;
 }
 
-/* PROJECTS GRID */
+/* PROJECT & PAGE INTROS */
 .projects-page .projects-intro{
-    padding:28px 0 26px;
+    padding:28px 0 18px;
 }
+
 .projects-page h1{
     font-size:2.05rem;
     letter-spacing:0.01em;
-    margin:0 0 4px;
 }
+
+.page-intro {
+    margin-bottom: 18px;
+}
+
+.projects-intro h1,
+.about-page .about-me h1,
+.writing-intro h1,
+.contact-page h1 {
+    margin: 0 0 6px;
+}
+
+.projects-intro .lead,
+.about-page .about-me .page-subtitle,
+.writing-intro .page-subtitle,
+.contact-page .page-subtitle {
+    margin: 0;
+    position: relative;
+}
+
+.projects-intro .lead::after,
+.about-page .about-me .page-subtitle::after,
+.writing-intro .page-subtitle::after,
+.contact-page .page-subtitle::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: rgba(148, 163, 184, 0.18);
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+/* Slightly tighter gap under divider on Projects page */
+.projects-intro .lead::after {
+    margin-bottom: 10px;
+}
+
+/* PROJECTS GRID */
 .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .project-card{
     background:var(--card);
@@ -345,7 +500,8 @@ body:not(.light) .project-card{
 .card-footer{display:flex;gap:12px;align-items:center}
 
 .projects-process {
-    padding: 4px 0 10px;
+    padding: 0 0 10px;
+    margin-top: -10px;
 }
 
 .projects-process-grid {
@@ -364,6 +520,36 @@ body:not(.light) .project-card{
     margin: 0;
     color: var(--muted);
     font-size: 0.9rem;
+}
+
+.projects-process-grid article {
+    position: relative;
+    padding: 14px 14px 14px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.35), transparent 55%);
+    box-shadow: 0 10px 26px rgba(15,23,42,0.55);
+    backdrop-filter: blur(10px);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.projects-process-grid article::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 14px;
+    width: 4px;
+    height: 28px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent), rgba(37,99,235,0.1));
+    opacity: 0.9;
+}
+
+.projects-process-grid article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(15,23,42,0.8);
+    border-color: rgba(59,130,246,0.9);
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.55), transparent 60%);
 }
 
 .projects-filters {
@@ -423,11 +609,37 @@ body.light .filter-pill:hover {
 
 .writing-grid {
     display: grid;
-    gap: 20px;
+    gap: 18px;
 }
 
 .writing-grid .home-featured-card {
     margin: 0;
+}
+
+/* Softer card background for Writing in dark mode */
+body:not(.light) .writing-grid .home-featured-card {
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.22), transparent 60%), rgba(15,23,42,0.98);
+    border-color: rgba(148,163,184,0.55);
+}
+
+@media (max-width: 768px) {
+    .writing-grid {
+        gap: 16px;
+    }
+
+    .writing-grid .home-featured-card {
+        padding: 14px 16px;
+    }
+
+    .writing-grid .home-featured-card h2 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .writing-grid .home-featured-card p {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
 }
 
 /* Buttons in project cards */
@@ -624,6 +836,41 @@ body.light .suggestions li.active {
     color: #ff6b6b; /* change color on hover */
 }
 
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.6);
+    background: rgba(15,23,42,0.85);
+    color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.4rem;
+    user-select: none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.55);
+    transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.lightbox-nav.prev {
+    left: 24px;
+}
+
+.lightbox-nav.next {
+    right: 24px;
+}
+
+.lightbox-nav:hover {
+    background: rgba(37,99,235,0.9);
+    border-color: rgba(59,130,246,0.9);
+    box-shadow: 0 12px 30px rgba(15,23,42,0.8);
+    transform: translateY(-50%) translateY(-1px);
+}
+
 .about-focus {
     margin-top: 10px;
     padding: 10px 0 6px;
@@ -642,6 +889,7 @@ body.light .suggestions li.active {
     padding: 14px 16px;
     border: 1px solid rgba(148, 163, 184, 0.25);
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .about-focus-card h3 {
@@ -652,6 +900,11 @@ body.light .suggestions li.active {
 .about-focus-card p {
     margin: 0;
     color: var(--muted);
+.about-focus-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.65);
+    border-color: rgba(59, 130, 246, 0.7);
+}
     font-size: 0.9rem;
 }
 
@@ -686,6 +939,8 @@ body.light .suggestions li.active {
     margin: 8px 0 0;
     padding-left: 18px;
     color: var(--muted);
+    column-count: 2;
+    column-gap: 32px;
 }
 
 .about-principles li + li {

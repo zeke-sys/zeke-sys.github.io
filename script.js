@@ -3,7 +3,7 @@
 // --- Theme toggle with localStorage persistence ---
 const body = document.body;
 const themeToggleButtons = document.querySelectorAll('#theme-toggle');
-const YEAR_IDS = ['year', 'year-2', 'year-3'];
+const YEAR_IDS = ['year', 'year-2', 'year-3', 'year-writing', 'year-contact'];
 
 // set initial year(s)
 function setYears(){
@@ -101,25 +101,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.querySelector('.lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');
+    const prevBtn = document.querySelector('.lightbox-nav.prev');
+    const nextBtn = document.querySelector('.lightbox-nav.next');
 
     if (lightbox && lightboxImg && closeBtn) {
+        const photos = Array.from(document.querySelectorAll('.personal-photos img'));
+        let currentIndex = 0;
+        let isOpen = false;
+
+        function openLightboxAt(index) {
+            if (!photos.length) return;
+            currentIndex = (index + photos.length) % photos.length;
+            const img = photos[currentIndex];
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.style.display = 'flex';
+            isOpen = true;
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            isOpen = false;
+        }
+
+        function showOffset(delta) {
+            if (!photos.length) return;
+            openLightboxAt(currentIndex + delta);
+        }
+
         // open lightbox on image click
-        document.querySelectorAll('.personal-photos img').forEach(img => {
+        photos.forEach((img, index) => {
             img.addEventListener('click', () => {
-                lightbox.style.display = 'flex';
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
+                openLightboxAt(index);
             });
         });
 
+        // navigation buttons
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showOffset(-1);
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showOffset(1);
+            });
+        }
+
         // close button
         closeBtn.addEventListener('click', () => {
-            lightbox.style.display = 'none';
+            closeLightbox();
         });
 
         // click outside image closes
         lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) lightbox.style.display = 'none';
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // keyboard navigation when lightbox is open
+        document.addEventListener('keydown', (e) => {
+            if (!isOpen) return;
+            if (e.key === 'ArrowRight') {
+                showOffset(1);
+            } else if (e.key === 'ArrowLeft') {
+                showOffset(-1);
+            } else if (e.key === 'Escape') {
+                closeLightbox();
+            }
         });
     }
     

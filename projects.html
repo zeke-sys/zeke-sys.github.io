@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/profile.jpg" />
   <title>Projects | Zeke Isaac</title>
-  <link rel="icon" href="assets/rsa.png" type="image/png" />
+  <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <script async src = "https://www.googletagmanager.com/gtag/js?id=G-9SDYHZWK13"></script>
@@ -22,6 +22,8 @@
   </script>
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- NAVBAR -->
   <header class="navbar" role="banner">
@@ -47,8 +49,8 @@
   </header>
 
   <!-- PROJECTS SECTION -->
-  <main class="container projects-page page-container">
-    <section class="projects-intro" data-animate="fade-in">
+  <main id="main-content" class="container projects-page page-container">
+    <section class="projects-intro page-intro" data-animate="fade-in">
       <h1>Projects</h1>
       <p class="lead">Hands-on work in algorithms, cryptography, and automation.</p>
     </section>
@@ -75,6 +77,7 @@
       <span class="filter-label">Jump to:</span>
       <a class="filter-pill" href="#security-project">Security &amp; cryptography</a>
       <a class="filter-pill" href="#trie-project">Data structures &amp; search</a>
+      <a class="filter-pill" href="#evidenceiq-project">AI &amp; automation</a>
       <a class="filter-pill" href="#algorithms-project">Algorithms</a>
       <a class="filter-pill" href="#java-project">Java practice</a>
     </section>
@@ -82,10 +85,11 @@
     <section class="projects-grid" id="projects" data-animate="fade-in">
       <!-- Card 1 -->
       <article id="security-project" class="project-card" data-animate="slide-up">
-        <img class="card-img" src="assets/rsa.jpg" alt="RSA Toolkit">
+        <img class="card-img" src="assets/rsa.jpg" alt="RSA Toolkit" loading="lazy">
         <div class="card-body">
           <h3>RSA Cryptography Toolkit</h3>
           <p>Implements fast modular exponentiation (FME), key generation (Euclidean algorithm), and end-to-end encryption/decryption.</p>
+          <p><strong>Impact / what I learned:</strong> Translating math-heavy specs into code and validating them with small, focused tests.</p>
           <p class="card-meta">Tech: C++, number theory, cryptography</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/Zeke-RSA_Project" target="_blank" rel="noopener noreferrer">View Repo</a>
@@ -95,10 +99,11 @@
 
       <!-- Card 2 -->
       <article id="trie-project" class="project-card" data-animate="slide-up">
-        <img class="card-img" src="assets/trie.jpg" alt="Trie Autocomplete">
+        <img class="card-img" src="assets/trie.jpg" alt="Trie Autocomplete" loading="lazy">
         <div class="card-body">
           <h3>Trie Autocomplete Application</h3>
           <p>Trie (prefix-tree) implementation with autocomplete, search, word frequency, and basic predictive modeling.</p>
+          <p><strong>Impact / what I learned:</strong> How data structures shape user experience and how visualizing internal state makes debugging and explanation easier.</p>
           <p class="card-meta">Tech: C++, data structures, algorithms</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/AutocompleteProjectApp" target="_blank" rel="noopener noreferrer">View Repo</a>
@@ -109,7 +114,7 @@
 
       <!-- Card 3 -->
       <article id="algorithms-project" class="project-card" data-animate="slide-up">
-        <img class="card-img" src="assets/algorithm.jpg" alt="Algorithms">
+        <img class="card-img" src="assets/algorithms.jpg" alt="Algorithms" loading="lazy">
         <div class="card-body">
           <h3>Algorithms Collection</h3>
           <p>Classic and custom algorithm implementations for study, benchmarking, and future projects.</p>
@@ -122,7 +127,7 @@
 
       <!-- Card 4 -->
       <article id="java-project" class="project-card" data-animate="slide-up">
-        <img class="card-img" src="assets/menu.jpg" alt="Menu">
+        <img class="card-img" src="assets/menu.jpg" alt="Menu" loading="lazy">
         <div class="card-body">
           <h3>Menu Driven Application</h3>
           <p>Menu-driven Java program that lets users browse ice-cream flavors and trigger different actions from a simple console menu.</p>
@@ -132,6 +137,20 @@
           </div>
         </div>
       </article>
+
+      <!-- Card 5 -->
+      <article id="evidenceiq-project" class="project-card" data-animate="slide-up">
+        <img class="card-img" src="assets/evidenceIQLogo.jpg" alt="EvidenceIQ audit workspace" loading="lazy">
+        <div class="card-body">
+          <h3>EvidenceIQ Audit Workspace</h3>
+          <p>AI-powered audit workspace that connects claims, controls, evidence, and review notes so every conclusion stays traceable and reviewer-ready.</p>
+          <p class="card-meta">Tech: Product design, audit workflows, AI-assisted automation</p>
+          <div class="card-footer">
+            <a class="btn" href="https://evidenceiq-ai.com" target="_blank" rel="noopener noreferrer">Visit Site</a>
+          </div>
+        </div>
+      </article>
+
 
     </section>
   </main>

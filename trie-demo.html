@@ -10,7 +10,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/profile.jpg" />
     <title>Trie Autocomplete Demo | Zeke Isaac</title>
-    <link rel="icon" href="assets/rsa.png" type="image/png" />
+    <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="trie-demo.js"></script>
     <script defer src="script.js"></script>
@@ -24,6 +24,8 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- NAVBAR -->
     <header class ="navbar" role="banner">
         <div class="container nav-inner">
@@ -48,13 +50,17 @@
     </header>
 
     <!-- TRIE DEMO SECTION -->
-    <main class="container page-container" data-animate="fade-in">
+    <main id="main-content" class="container page-container" data-animate="fade-in">
         <section class="demo-section">
             <h1>Trie Autocomplete Demo</h1>
             <p class="lead">A browser-based version of my C++ trie autocomplete project using a sample dictionary from A to Z.</p>
             <p>
                 Type a prefix like <strong>ap</strong>, <strong>cyber</strong>, or <strong>sec</strong> to see autocomplete suggestions,
                 then click a suggestion to fill the input and highlight its path in the trie diagram below.
+            </p>
+
+            <p>
+                <a href="projects.html#trie-project">&larr; Back to Projects</a>
             </p>
 
             <div class="autocomplete-box">

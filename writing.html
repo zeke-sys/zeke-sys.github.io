@@ -10,11 +10,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/profile.jpg" />
   <title>Writing | Zeke Isaac</title>
-  <link rel="icon" href="assets/rsa.png" type="image/png" />
+  <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- NAVBAR -->
   <header class="navbar" role="banner">
@@ -39,8 +41,8 @@
     </div>
   </header>
 
-  <main class="container page-container">
-    <section class="writing-intro" data-animate="fade-in">
+  <main id="main-content" class="container page-container">
+    <section class="writing-intro page-intro" data-animate="fade-in">
       <h1>Writing &amp; Notes</h1>
       <p class="page-subtitle">Short, practical pieces on how I think about systems, security, and code quality.</p>
     </section>
@@ -73,6 +75,26 @@
         </p>
         <p>
           That mindset helps catch issues in logging, error handling, and data flows long before they reach production.
+        </p>
+      </article>
+
+      <article class="home-featured-card">
+        <h2>Turning audit findings into tests</h2>
+        <p>
+          In audit, every finding comes with a control objective and evidence. I like to translate that into concrete unit and integration tests.
+        </p>
+        <p>
+          That way, once a weakness is fixed, it stays fixed — and future changes have to prove they don’t reintroduce the same risk.
+        </p>
+      </article>
+
+      <article class="home-featured-card">
+        <h2>Small automations that actually ship</h2>
+        <p>
+          The most useful scripts I’ve written weren’t complex — they automated boring checks, file moves, or report formatting my team did every week.
+        </p>
+        <p>
+          I aim for tools that are easy to run, easy to explain, and safe to hand off so they survive long after the first use case.
         </p>
       </article>
     </section>

@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/profile.jpg" />
   <title>About | Zeke Isaac</title>
-  <link rel="icon" href="assets/rsa.png" type="image/png" />
+  <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <script async src = "https://www.googletagmanager.com/gtag/js?id=G-9SDYHZWK13"></script>
@@ -22,6 +22,8 @@
   </script>
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- NAVBAR -->
   <header class="navbar" role="banner">
@@ -47,18 +49,19 @@
   </header>
 
   <!-- ABOUT SECTION -->
-  <main class="container about-page page-container">
-    <section class="about-me" data-animate="fade-in">
+  <main id="main-content" class="container about-page page-container">
+    <section class="about-me page-intro" data-animate="fade-in">
       <h1>About Me</h1>
       <p class="page-subtitle">From IT audit and risk management to hands-on software engineering.</p>
       <p>
-        I am an IT Audit Manager and Computer Science student at the University of Colorado Boulder, transitioning into software engineering. I bring 8+ years of experience in systems analysis, risk assessment, and process improvement.
+        I'm an IT Audit Manager and Computer Science student at the University of Colorado Boulder, moving into software engineering with 8+ years in systems analysis, risk, and process improvement.
       </p>
       <h2>Education</h2>
       <ul>
         <li>Bachelor of Science in Computer Science (in progress) — University of Colorado Boulder</li>
         <li>Master of Science in Management Information Systems — The University of Akron</li>
         <li>Master of Science in Accountancy — The University of Akron</li>
+        <li>Bachelor of Business Administration (IB & HR) — The University of Akron</li>
       </ul>
     </section>
 
@@ -142,24 +145,21 @@
     <section class="personal" data-animate="fade-in">
       <h2>Personal Interests</h2>
       <p>
-        When I'm not deep into code or audits, I'm usually exploring new cuisines, traveling with my family, 
-        or getting lost in documentaries. I enjoy staying active and always look for small ways 
-        to improve how I think, learn, and build.
-      </p>
-      <p>
-        I believe growth comes from curiosity, and that mindset shapes how I work, learn, tackle challenges, and collaborate with others.
+        Outside of work and code, I like exploring new cuisines, traveling with my family, watching documentaries, and staying active. Growth through curiosity shapes how I work, learn, tackle challenges, and collaborate with others.
       </p>
       <div class="personal-photos" data-animate="fade-in">
-        <img src="assets/travel.jpg" alt="travel photo">
-        <img src="assets/cooking.jpg" alt="cooking photo">
-        <img src="assets/hiking.jpg" alt="hiking photo">
-        <img src="assets/cycling.jpg" alt="cycling photo">
+        <img src="assets/travel.jpg" alt="travel photo" loading="lazy">
+        <img src="assets/cooking.jpg" alt="cooking photo" loading="lazy">
+        <img src="assets/hiking.jpg" alt="hiking photo" loading="lazy">
+        <img src="assets/cycling.jpg" alt="cycling photo" loading="lazy">
       </div>
 
       <!-- Lightbox overlay -->
       <div id="lightbox" class="lightbox">
         <span class="lightbox-close" id="lightbox-close">&times;</span>
         <img class="lightbox-img" src="" alt="Enlarged photo">
+        <button type="button" class="lightbox-nav prev" aria-label="Previous photo">&#8249;</button>
+        <button type="button" class="lightbox-nav next" aria-label="Next photo">&#8250;</button>
       </div>
     </section>
 

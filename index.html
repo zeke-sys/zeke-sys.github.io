@@ -10,7 +10,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/profile.jpg" />
   <title>Zeke Isaac | Portfolio</title>
-  <link rel="icon" href="assets/rsa.png" type="image/png" />
+  <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
   <script async src = "https://www.googletagmanager.com/gtag/js?id=G-9SDYHZWK13"></script>
@@ -20,9 +20,30 @@
     gtag('js', new Date());
     gtag('config', 'G-9SDYHZWK13');
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Zeke Isaac",
+    "jobTitle": "IT Audit Manager & Software Engineer",
+    "url": "https://zeke-sys.github.io/",
+    "image": "https://zeke-sys.github.io/assets/profile.jpg",
+    "sameAs": [
+      "https://github.com/zeke-sys",
+      "https://www.linkedin.com/in/ezechiel-isaac-589149115"
+    ],
+    "description": "Cybersecurity and IT systems auditor and software engineer focused on algorithms, security, and automation.",
+    "alumniOf": [
+      "University of Colorado Boulder",
+      "The University of Akron"
+    ]
+  }
+  </script>
 </head>
 
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- NAVBAR -->
   <header class="navbar" role="banner">
@@ -48,7 +69,7 @@
   </header>
 
   <!-- HERO -->
-  <main class="container page-container">
+  <main id="main-content" class="container page-container">
     <section class="hero" data-animate="slide-up">
       <div class="hero-grid">
         <div class="hero-left">
@@ -97,7 +118,7 @@
       <p>
           I’m passionate about algorithms, data structures, and applying them to real-world problems in security, automation, and analytics. I focus on building systems that are reliable, scalable, and efficient, and I’m continuing to share new projects here as I learn. If any of my work resonates with you, I’d love to connect.
       </p>
-      <img class="banner-img" src="assets/techphoto.jpg" alt="technology banner">
+      <img class="banner-img" src="assets/techphoto.jpg" alt="technology banner" loading="lazy">
     </section>
 
     <section class="home-featured container" data-animate="fade-in">
@@ -126,7 +147,7 @@
       <div class="skills-grid">
         <span class="skill-pill"><strong>Languages:</strong> C++, Java, Python, JavaScript</span>
         <span class="skill-pill"><strong>Backend / Data:</strong> SQL, REST APIs, data modeling</span>
-        <span class="skill-pill"><strong>Security &amp; Audit:</strong> CISSP, CISA, CISM, CDPSE</span>
+        <span class="skill-pill"><strong>Security &amp; Audit:</strong> CISSP, CISA, CISM, CDPSE, CCSK</span>
         <span class="skill-pill"><strong>Cloud:</strong> OCI, AWS fundamentals, ISO 27001</span>
         <span class="skill-pill"><strong>Tooling:</strong> Git, CI/CD, Linux, containers (basics)</span>
         <span class="skill-pill"><strong>Focus Areas:</strong> automation, risk reduction, reliability</span>
@@ -154,7 +175,7 @@
           <span class="social-label">LinkedIn</span>
         </a>
       </div>
-      <small>© <span id="year"></span> Zeke Isaac</small>
+      <small>© <span id="year"></span> Zeke Isaac. All rights reserved.</small>
     </div>
   </footer>
 

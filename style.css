@@ -449,7 +449,8 @@ body.light .page-container img {
 .projects-intro .lead,
 .about-page .about-me .page-subtitle,
 .writing-intro .page-subtitle,
-.contact-page .page-subtitle {
+.contact-page .page-subtitle,
+.demo-section .lead {
     margin: 0;
     position: relative;
 }
@@ -457,7 +458,8 @@ body.light .page-container img {
 .projects-intro .lead::after,
 .about-page .about-me .page-subtitle::after,
 .writing-intro .page-subtitle::after,
-.contact-page .page-subtitle::after {
+.contact-page .page-subtitle::after,
+.demo-section .lead::after {
     content: "";
     display: block;
     height: 1px;
@@ -728,6 +730,11 @@ body.light .suggestions li.active {
     padding: 12px;
     border-radius: 12px;
     background: var(--card);
+}
+
+body:not(.light) .trie-diagram-wrapper {
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 60%), rgba(15,23,42,0.98);
+    border-color: rgba(148,163,184,0.55);
 }
 
 #trie-svg {

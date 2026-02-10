@@ -62,7 +62,17 @@ function toggleTheme() {
 // attach event listeners to all theme toggle buttons (header present on multiple pages)
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#theme-toggle').forEach(btn => {
-        btn.addEventListener('click', toggleTheme);
+        btn.addEventListener('click', () => {
+            toggleTheme();
+
+            // If the mobile nav menu is open, close it when toggling theme
+            if (typeof navLinks !== 'undefined' && navLinks && navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open');
+                if (typeof menuBtn !== 'undefined' && menuBtn) {
+                    menuBtn.textContent = "☰";
+                }
+            }
+        });
     });
 
     // Dynamic daily greeting

@@ -3,8 +3,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=devide-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projects by Zeke Isaac including RSA cryptography toolkit, trie autocomplete demo, algorithms collection, and a Java menu-driven application." />
+  <meta property="og:title" content="Projects | Zeke Isaac" />
+  <meta property="og:description" content="Algorithms, cryptography, and automation projects by Zeke Isaac, including RSA toolkit, trie autocomplete, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/profile.jpg" />
   <title>Projects | Zeke Isaac</title>
+  <link rel="icon" href="assets/rsa.png" type="image/png" />
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <script async src = "https://www.googletagmanager.com/gtag/js?id=G-9SDYHZWK13"></script>
@@ -21,7 +27,7 @@
   <header class="navbar" role="banner">
     <div class="container nav-inner">
       <a class="brand" href="index.html">
-        <span class="logo">⎋</span> Zeke Isaac
+        <span class="logo">ZI</span> Zeke Isaac
       </a>
 
       <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Menu">
@@ -30,8 +36,10 @@
 
       <nav class="nav-links" role="navigation" aria-label="Main">
         <a href="index.html">Home</a>
-        <a href="projects.html" class="active">Projects</a>
+        <a href="projects.html">Projects</a>
         <a href="about.html">About</a>
+        <a href="writing.html">Writing</a>
+        <a href="contact.html">Contact</a>
         <a href="zeke-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
         <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
       </nav>
@@ -42,16 +50,43 @@
   <main class="container projects-page page-container">
     <section class="projects-intro" data-animate="fade-in">
       <h1>Projects</h1>
-      <p class="lead">Selected work that demonstrates algorithms, cryptography, and automation tooling.</p>
+      <p class="lead">Hands-on work in algorithms, cryptography, and automation.</p>
+    </section>
+
+    <section class="projects-process" data-animate="fade-in">
+      <h2>How I approach work</h2>
+      <div class="projects-process-grid">
+        <article>
+          <h3>Start with the problem</h3>
+          <p>I clarify the real constraint or risk before touching tools or patterns.</p>
+        </article>
+        <article>
+          <h3>Design for clarity</h3>
+          <p>I favor simple, well-named structures that are easy to extend, test, and review.</p>
+        </article>
+        <article>
+          <h3>Measure and iterate</h3>
+          <p>I use tests, profiling, and feedback to refine performance, usability, and maintainability.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects-filters" data-animate="fade-in">
+      <span class="filter-label">Jump to:</span>
+      <a class="filter-pill" href="#security-project">Security &amp; cryptography</a>
+      <a class="filter-pill" href="#trie-project">Data structures &amp; search</a>
+      <a class="filter-pill" href="#algorithms-project">Algorithms</a>
+      <a class="filter-pill" href="#java-project">Java practice</a>
     </section>
 
     <section class="projects-grid" id="projects" data-animate="fade-in">
       <!-- Card 1 -->
-      <article class="project-card" data-animate="slide-up">
-        <img class="card-img" src="/assets/rsa.jpg" alt="RSA Toolkit">
+      <article id="security-project" class="project-card" data-animate="slide-up">
+        <img class="card-img" src="assets/rsa.jpg" alt="RSA Toolkit">
         <div class="card-body">
           <h3>RSA Cryptography Toolkit</h3>
-          <p>Implements fast modular exponentiation (FME), key generation (Euclidean Algorithm), and end-to-end encoding/decoding.</p>
+          <p>Implements fast modular exponentiation (FME), key generation (Euclidean algorithm), and end-to-end encryption/decryption.</p>
+          <p class="card-meta">Tech: C++, number theory, cryptography</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/Zeke-RSA_Project" target="_blank" rel="noopener noreferrer">View Repo</a>
           </div>
@@ -59,11 +94,12 @@
       </article>
 
       <!-- Card 2 -->
-      <article class="project-card" data-animate="slide-up">
-        <img class="card-img" src="/assets/trie.jpg" alt="Trie Autocomplete">
+      <article id="trie-project" class="project-card" data-animate="slide-up">
+        <img class="card-img" src="assets/trie.jpg" alt="Trie Autocomplete">
         <div class="card-body">
           <h3>Trie Autocomplete Application</h3>
-          <p>High-performance Trie/prefix-tree implementation supporting autocomplete, search, word frequency, and predictive modeling.</p>
+          <p>Trie (prefix-tree) implementation with autocomplete, search, word frequency, and basic predictive modeling.</p>
+          <p class="card-meta">Tech: C++, data structures, algorithms</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/AutocompleteProjectApp" target="_blank" rel="noopener noreferrer">View Repo</a>
             <a class="btn secondary" href="trie-demo.html">Live Demo</a>
@@ -72,11 +108,12 @@
       </article>
 
       <!-- Card 3 -->
-      <article class="project-card" data-animate="slide-up">
-        <img class="card-img" src="/assets/algorithm.jpg" alt="Algorithms">
+      <article id="algorithms-project" class="project-card" data-animate="slide-up">
+        <img class="card-img" src="assets/algorithm.jpg" alt="Algorithms">
         <div class="card-body">
           <h3>Algorithms Collection</h3>
-          <p>Collection of classic and custom algorithm implementations for study, benchmarking, and quick reminders for current and furture projects (C++ / Python).</p>
+          <p>Classic and custom algorithm implementations for study, benchmarking, and future projects.</p>
+          <p class="card-meta">Tech: C++, Python, algorithms &amp; data structures</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/AlgoRepo" target="_blank" rel="noopener noreferrer">View Repo</a>
           </div>
@@ -84,11 +121,12 @@
       </article>
 
       <!-- Card 4 -->
-      <article class="project-card" data-animate="slide-up">
-        <img class="card-img" src="/assets/menu.jpg" alt="Menu">
+      <article id="java-project" class="project-card" data-animate="slide-up">
+        <img class="card-img" src="assets/menu.jpg" alt="Menu">
         <div class="card-body">
           <h3>Menu Driven Application</h3>
-          <p>This application shows a menu driven program in Java that represents a menu of options (in this case Ice Cream flavors) and different actions performed by the user based on these options.</p>
+          <p>Menu-driven Java program that lets users browse ice-cream flavors and trigger different actions from a simple console menu.</p>
+          <p class="card-meta">Tech: Java, object-oriented design</p>
           <div class="card-footer">
             <a class="btn" href="https://github.com/zeke-sys/MenuDrivenApplication-IceCreamOrdering" target="_blank" rel="noopener noreferrer">View Repo</a>
           </div>
@@ -101,8 +139,14 @@
   <footer class="site-footer" data-animate="fade-in">
     <div class="container">
       <div class="socials">
-        <a href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://linkedin.com/in/ezechiel-isaac-589149115" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="social-link social-github" href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon">GH</span>
+          <span class="social-label">GitHub</span>
+        </a>
+        <a class="social-link social-linkedin" href="https://linkedin.com/in/ezechiel-isaac-589149115" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon">in</span>
+          <span class="social-label">LinkedIn</span>
+        </a>
       </div>
       <small>© <span id="year-2"></span> Zeke Isaac</small>
     </div>

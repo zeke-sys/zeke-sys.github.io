@@ -97,29 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // lightbox functionality for project images
+    // lightbox functionality for personal photos (only when present)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.querySelector('.lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');
 
-    // open lightbox on image click
-    document.querySelectorAll('.personal-photos img').forEach(img => {
-        img.addEventListener('click', () => {
-            lightbox.style.display = 'flex';
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
+    if (lightbox && lightboxImg && closeBtn) {
+        // open lightbox on image click
+        document.querySelectorAll('.personal-photos img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+            });
         });
-    });
 
-    // close button
-    closeBtn.addEventListener('click', () => {
-        lightbox.style.display = 'none';
-    });
+        // close button
+        closeBtn.addEventListener('click', () => {
+            lightbox.style.display = 'none';
+        });
 
-    // click outside image closes
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) lightbox.style.display = 'none';
-    });
+        // click outside image closes
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.style.display = 'none';
+        });
+    }
     
 });
 
@@ -130,6 +132,7 @@ const page = current === "" ? "index.html" : current;
 document.querySelectorAll(".nav-links a").forEach(a => {
     if (a.getAttribute("href") === page) {
         a.classList.add("active");
+        a.setAttribute("aria-current", "page");
     }
 });
 
@@ -137,18 +140,20 @@ document.querySelectorAll(".nav-links a").forEach(a => {
 const menuBtn = document.getElementById("mobile-menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
-menuBtn.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    menuBtn.textContent = isOpen ? "✕" : "☰";  // icon changes
-});
+if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        menuBtn.textContent = isOpen ? "✕" : "☰";  // icon changes
+    });
 
-// Close menu when clicking outside
-document.addEventListener("click", (e) => {
-    if (!navLinks.contains(e.target) && e.target !== menuBtn) {
-        navLinks.classList.remove("open");
-        menuBtn.textContent = "☰"; // reset icon
-    }
-});
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!navLinks.contains(e.target) && e.target !== menuBtn) {
+            navLinks.classList.remove("open");
+            menuBtn.textContent = "☰"; // reset icon
+        }
+    });
+}
 
 // Tracking Resume Button Click
 document.querySelectorAll('a[href="zeke-resume.pdf"]').forEach(btn => {

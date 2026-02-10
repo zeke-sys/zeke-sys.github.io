@@ -4,7 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cybersecurity and IT systems auditor and software engineer portfolio showcasing algorithms, security, and automation projects by Zeke Isaac." />
+  <meta property="og:title" content="Zeke Isaac | Portfolio" />
+  <meta property="og:description" content="Cybersecurity and IT systems auditor and software engineer portfolio showcasing algorithms, security, and automation projects by Zeke Isaac." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/profile.jpg" />
   <title>Zeke Isaac | Portfolio</title>
+  <link rel="icon" href="assets/rsa.png" type="image/png" />
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
   <script async src = "https://www.googletagmanager.com/gtag/js?id=G-9SDYHZWK13"></script>
@@ -22,7 +28,7 @@
   <header class="navbar" role="banner">
     <div class="container nav-inner">
       <a class="brand" href="index.html">
-        <span class="logo">⎋</span> Zeke Isaac
+        <span class="logo">ZI</span> Zeke Isaac
       </a>
 
       <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Menu">
@@ -33,6 +39,8 @@
         <a href="index.html">Home</a>
         <a href="projects.html">Projects</a>
         <a href="about.html">About</a>
+        <a href="writing.html">Writing</a>
+        <a href="contact.html">Contact</a>
         <a href="zeke-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
         <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
       </nav>
@@ -42,9 +50,9 @@
   <!-- HERO -->
   <main class="container page-container">
     <section class="hero" data-animate="slide-up">
-      <div class="container hero-grid">
+      <div class="hero-grid">
         <div class="hero-left">
-          <img src="/assets/profile.jpg" alt="Zeke profile" class="profile-img" />
+          <img src="assets/profile.jpg" alt="Zeke profile" class="profile-img" />
         </div>
 
         <div class="hero-right">
@@ -53,7 +61,7 @@
 
           <h1>Cybersecurity & IT Systems Auditor • Software Engineer</h1>
           <p class="lead">
-            I combine IT audit, automation, and security expertise to enhance efficiency, reduce risk, strengthen compliance, and support smarter decision-making.
+            I combine IT audit, automation, and security to make systems more efficient, resilient, and compliant.
           </p>
           <p>
             Computer Science student at the University of Colorado Boulder.
@@ -66,18 +74,68 @@
       </div>
     </section>
 
+    <section class="home-stats" data-animate="fade-in">
+      <div class="stats-grid">
+        <div class="stat-pill">
+          <span class="stat-number">8+</span>
+          <span class="stat-label">years in audit &amp; risk</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-number">3</span>
+          <span class="stat-label">graduate &amp; undergraduate degrees</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-number">7</span>
+          <span class="stat-label">security &amp; cloud certifications</span>
+        </div>
+      </div>
+    </section>
+
     <!-- INTRO -->
     <section class="intro container" data-animate="fade-in">
       <h2>Thank you for checking out my page! Feel free to reach out.</h2>
       <p>
-        I’m passionate about exploring advanced algorithms and data structures and applying them to real-world challenges in security, automation, and system analytics. I enjoy building solutions that make systems more reliable, scalable, and efficient. I'll continue to share my projects on here. If any of my work interests you, I’d love the opportunity to connect and exchange ideas.
+          I’m passionate about algorithms, data structures, and applying them to real-world problems in security, automation, and analytics. I focus on building systems that are reliable, scalable, and efficient, and I’m continuing to share new projects here as I learn. If any of my work resonates with you, I’d love to connect.
       </p>
-      <img class="banner-img" src="/assets/techphoto.jpg" alt="technology banner">
+      <img class="banner-img" src="assets/techphoto.jpg" alt="technology banner">
+    </section>
+
+    <section class="home-featured container" data-animate="fade-in">
+      <h2>Featured Work</h2>
+      <p class="lead">A few projects that best represent how I think and build.</p>
+      <div class="home-featured-grid">
+        <article class="home-featured-card">
+          <h3>RSA Cryptography Toolkit</h3>
+          <p>Implements core RSA building blocks with a focus on correctness and clear number-theory foundations.</p>
+          <a class="link" href="https://github.com/zeke-sys/Zeke-RSA_Project" target="_blank" rel="noopener noreferrer">View RSA project →</a>
+        </article>
+        <article class="home-featured-card">
+          <h3>Trie Autocomplete Application</h3>
+          <p>High-performance trie-based autocomplete with a browser demo that visualizes paths through the structure.</p>
+          <a class="link" href="trie-demo.html">Try the autocomplete demo →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="skills container" data-animate="fade-in">
+      <h2>Skills &amp; Tech Stack</h2>
+      <p class="lead">
+          I work across security, systems, and software engineering, with a strong foundation in algorithms, data structures,
+          and modern cloud tooling.
+      </p>
+      <div class="skills-grid">
+        <span class="skill-pill"><strong>Languages:</strong> C++, Java, Python, JavaScript</span>
+        <span class="skill-pill"><strong>Backend / Data:</strong> SQL, REST APIs, data modeling</span>
+        <span class="skill-pill"><strong>Security &amp; Audit:</strong> CISSP, CISA, CISM, CDPSE</span>
+        <span class="skill-pill"><strong>Cloud:</strong> OCI, AWS fundamentals, ISO 27001</span>
+        <span class="skill-pill"><strong>Tooling:</strong> Git, CI/CD, Linux, containers (basics)</span>
+        <span class="skill-pill"><strong>Focus Areas:</strong> automation, risk reduction, reliability</span>
+      </div>
     </section>
 
     <section class="contact-invitation container" data-animate="fade-in">
       <p>
-        Connect with me via linkedin or github using the links in the footer below. ⤵
+          Connect with me on LinkedIn or GitHub using the links below. ⤵
       </p>
     </section>
 
@@ -87,8 +145,14 @@
   <footer class="site-footer" data-animate="fade-in">
     <div class="container">
       <div class="socials">
-        <a href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://linkedin.com/in/ezechiel-isaac-589149115" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="social-link social-github" href="https://github.com/zeke-sys" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon">GH</span>
+          <span class="social-label">GitHub</span>
+        </a>
+        <a class="social-link social-linkedin" href="https://linkedin.com/in/ezechiel-isaac-589149115" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon">in</span>
+          <span class="social-label">LinkedIn</span>
+        </a>
       </div>
       <small>© <span id="year"></span> Zeke Isaac</small>
     </div>

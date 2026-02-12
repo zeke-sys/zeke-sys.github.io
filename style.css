@@ -1065,49 +1065,58 @@ body:not(.light) .trie-diagram-wrapper {
 
 @media (max-width:640px){
   .projects-grid{grid-template-columns:1fr}
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 58px;
-    right: 18px;
-    width: 180px;
-    background: rgba(20, 20, 30, 0.65);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.10);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.45);
-    border-radius: 14px;
-    padding: 8px 0;
-    flex-direction: column;
-    animation: fadeDown 0.22s ease-out;
-    z-index: 999; 
-  }
-  .nav-links.open {
-    display: flex;
-  }
-  .nav-links a, .nav-links button {
-    padding: 12px 16px;
-    text-align: left;
-    width: 100%;
-    color: var(--text);
-  }
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 80vw;
+        max-width: 320px;
+        background: rgba(20, 20, 30, 0.97);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-left: 1px solid rgba(255,255,255,0.10);
+        box-shadow: -8px 0 25px rgba(0,0,0,0.45);
+        border-radius: 0 0 0 18px;
+        padding: 32px 0 0 0;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.28s cubic-bezier(.4,1.2,.4,1);
+        z-index: 9999;
+    }
+    .nav-links.open {
+        display: flex;
+        transform: translateX(0);
+    }
+    .nav-links a, .nav-links button {
+        padding: 18px 28px;
+        text-align: left;
+        width: 100%;
+        color: var(--text);
+        font-size: 1.1rem;
+        border: none;
+        background: none;
+        outline: none;
+        transition: background 0.18s, color 0.18s;
+    }
 
-  .nav-links a:hover, .nav-links button:hover {
-    background: rgba(255,255,255,0.12);
-    color: white;
-  }
+    .nav-links a:hover, .nav-links button:hover {
+        background: rgba(255,255,255,0.10);
+        color: var(--accent);
+    }
 
   /* fade + slide animation */
-  @keyframes fadeDown {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
+    @keyframes fadeDown {
+        from {
+                opacity: 0;
+                transform: translateX(40px);
+        }
+        to {
+                opacity: 1;
+                transform: translateX(0);
+        }
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-  }
 
   .hero{padding:36px 0}
   .profile-img{width:220px;height:220px}

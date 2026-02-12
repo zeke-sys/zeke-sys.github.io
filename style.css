@@ -1071,11 +1071,11 @@ body:not(.light) .trie-diagram-wrapper {
         top: 0;
         right: 0;
         height: 100vh;
-        width: 80vw;
-        max-width: 320px;
+        width: 40vw;
+        max-width: 180px;
         background: rgba(20, 20, 30, 0.97);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
         border-left: 1px solid rgba(255,255,255,0.10);
         box-shadow: -8px 0 25px rgba(0,0,0,0.45);
         border-radius: 0 0 0 18px;

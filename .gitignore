@@ -1,0 +1,15 @@
+node_modules/
+.env
+data/
+data/*.json
+auth.json
+admin-sessions.json
+verify.json
+comments.json
+reactions.json
+server/data/
+/.env.local
+server/.env
+server/.env.local
+server/data/
+server/data/*.json

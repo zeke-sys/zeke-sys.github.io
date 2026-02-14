@@ -22,12 +22,22 @@
     .empty{color:#666;padding:18px;background:#fff;border-radius:8px;text-align:center}
   </style>
   <script>
+    // API base: read from meta[name="api-base"] or default to localhost in dev.
+    const API_BASE = (function(){
+      const m = document.querySelector('meta[name="api-base"]');
+      if(m && m.content) return m.content.replace(/\/$/, '');
+      if(window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0') return 'http://localhost:3000';
+      return '';
+    })();
+    const IS_STATIC_HOST = window.location.hostname.endsWith('.github.io') || window.location.hostname === 'zeke-sys.github.io';
+
     async function api(path, opts){
       const token = localStorage.getItem('adminToken');
       opts = opts || {};
       opts.headers = opts.headers || {};
       if(token) opts.headers.Authorization = 'Bearer '+token;
-      const r = await fetch(path, opts);
+      const url = path.startsWith('http') ? path : ((API_BASE ? API_BASE : '') + path);
+      const r = await fetch(url, opts);
       if(r.status===401){ localStorage.removeItem('adminToken'); showLogin(); throw new Error('unauthorized'); }
       return r.json();
     }
@@ -38,9 +48,13 @@
     }
 
     async function login(){
+      if(IS_STATIC_HOST && !API_BASE){
+        alert('Admin is not available on GitHub Pages. Deploy the server and set a meta tag: <meta name="api-base" content="https://your-api.example.com">');
+        return;
+      }
       const user = document.getElementById('user').value;
       const pass = document.getElementById('pass').value;
-      const r = await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,pass})});
+      const r = await fetch((API_BASE ? API_BASE : '') + '/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,pass})});
       const j = await r.json();
       if(j.ok && j.token){ localStorage.setItem('adminToken', j.token); document.getElementById('login').style.display='none'; document.getElementById('content').style.display='block'; load(); }
       else alert('login failed');

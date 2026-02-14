@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comments Admin</title>
+  <style>
+    body{font-family:Inter,Arial;padding:18px;color:#0b1220;background:#f6f8fb}
+    .panel{max-width:980px;margin:0 auto}
+    .comment{border:1px solid #ddd;padding:12px;margin-bottom:8px;border-radius:8px;background:#fff}
+    .meta{display:flex;justify-content:space-between;gap:12px}
+    .controls button{margin-left:6px}
+    .login{display:flex;gap:8px;margin-bottom:12px}
+    .login input{padding:8px}
+    .comment .meta-left{display:flex;gap:12px;align-items:center}
+    .badge{padding:4px 8px;border-radius:12px;font-size:0.8rem}
+    .badge.approved{background:#e6ffed;color:#0a6b2f}
+    .badge.flagged{background:#fff4e6;color:#7a4a00}
+    .badge.unverified{background:#fff0f6;color:#7a1a3a}
+    .controls small{display:block;color:#666;margin-top:6px}
+    .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    .empty{color:#666;padding:18px;background:#fff;border-radius:8px;text-align:center}
+  </style>
+  <script>
+    async function api(path, opts){
+      const token = localStorage.getItem('adminToken');
+      opts = opts || {};
+      opts.headers = opts.headers || {};
+      if(token) opts.headers.Authorization = 'Bearer '+token;
+      const r = await fetch(path, opts);
+      if(r.status===401){ localStorage.removeItem('adminToken'); showLogin(); throw new Error('unauthorized'); }
+      return r.json();
+    }
+
+    function showLogin(){
+      document.getElementById('content').style.display='none';
+      document.getElementById('login').style.display='block';
+    }
+
+    async function login(){
+      const user = document.getElementById('user').value;
+      const pass = document.getElementById('pass').value;
+      const r = await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user,pass})});
+      const j = await r.json();
+      if(j.ok && j.token){ localStorage.setItem('adminToken', j.token); document.getElementById('login').style.display='none'; document.getElementById('content').style.display='block'; load(); }
+      else alert('login failed');
+    }
+
+    async function load(){
+      try{
+        const data = await api('/api/admin/comments');
+        const out = document.getElementById('out'); out.innerHTML='';
+        const pages = Object.keys(data||{});
+        if(pages.length===0){ out.innerHTML = '<div class="empty">No comments yet.</div>'; return; }
+        pages.forEach(page => {
+          const h = document.createElement('h3'); h.innerText = page; out.appendChild(h);
+          const list = (data[page]||[]).slice().reverse();
+          list.forEach(c=>{
+            const div = document.createElement('div'); div.className='comment';
+            const meta = document.createElement('div'); meta.className='meta';
+            const left = document.createElement('div'); left.className='meta-left';
+            const nameEl = document.createElement('strong'); nameEl.innerText = c.name || 'Anonymous';
+            const timeEl = document.createElement('div'); timeEl.style.fontSize='0.9rem'; timeEl.style.color='#666'; timeEl.innerText = c.time || '';
+            left.appendChild(nameEl); left.appendChild(timeEl);
+            const right = document.createElement('div'); right.className='controls';
+            // badges
+            if(c.approved) { const b=document.createElement('span'); b.className='badge approved'; b.innerText='Approved'; right.appendChild(b);} 
+            if(c.flagged) { const b=document.createElement('span'); b.className='badge flagged'; b.innerText='Flagged'; right.appendChild(b);} 
+            if(c.verified===false) { const b=document.createElement('span'); b.className='badge unverified'; b.innerText='Unverified'; right.appendChild(b);} 
+            const approve = document.createElement('button'); approve.innerText = c.approved? 'Unapprove':'Approve';
+            approve.onclick=async()=>{
+              try{
+                if(c.approved){
+                  await api('/api/admin/comments/'+c.id+'/approve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ approved: false }) });
+                } else {
+                  await api('/api/admin/comments/'+c.id+'/approve', { method: 'POST' });
+                }
+                load();
+              }catch(e){ console.error(e); }
+            };
+            const del = document.createElement('button'); del.innerText='Delete'; del.onclick=async()=>{ if(confirm('Delete comment?')){ await api('/api/admin/comments/'+c.id,{method:'DELETE'}); load(); }};
+            right.appendChild(approve); right.appendChild(del);
+            meta.appendChild(left); meta.appendChild(right);
+            div.appendChild(meta);
+            const body = document.createElement('div'); body.style.marginTop='8px'; body.style.whiteSpace='pre-wrap'; body.innerText = c.text; div.appendChild(body);
+            // extra info
+            const info = document.createElement('div'); info.style.marginTop='8px'; info.style.fontSize='0.85rem'; info.style.color='#666'; info.innerText = `email: ${c.email||''}${c.recaptchaScore? ' · score: '+c.recaptchaScore : ''}`;
+            div.appendChild(info);
+            out.appendChild(div);
+          })
+        })
+      }catch(e){ console.error(e); showLogin(); }
+    }
+
+    window.onload = function(){ if(localStorage.getItem('adminToken')){ document.getElementById('login').style.display='none'; document.getElementById('content').style.display='block'; load(); } else showLogin(); };
+  </script>
+</head>
+<body>
+  <div class="panel">
+    <h1>Comments Admin</h1>
+    <div id="login" style="display:none">
+      <div class="login">
+        <input id="user" placeholder="username" />
+        <input id="pass" placeholder="password" type="password" />
+        <button onclick="login()">Login</button>
+      </div>
+      <p>Admin credentials come from environment variables <code>ADMIN_USER</code> and <code>ADMIN_PASS</code>.</p>
+    </div>
+
+      <div id="content" style="display:none">
+      <div class="toolbar">
+        <button id="refreshBtn">Refresh</button>
+        <label><input id="showAll" type="checkbox" /> Show all pages</label>
+        <div style="flex:1"></div>
+        <button id="logoutBtn">Logout</button>
+      </div>
+      <div style="margin-bottom:12px;background:#fff;padding:12px;border-radius:8px;border:1px solid #eee">
+        <h3 style="margin:0 0 8px 0">Import comments (JSON)</h3>
+        <input id="importFile" type="file" accept="application/json" />
+        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+          <button id="previewImportBtn">Preview import</button>
+          <button id="confirmImportBtn">Confirm import</button>
+          <div id="importStatus" style="margin-left:8px;color:#666"></div>
+        </div>
+        <pre id="importPreview" style="max-height:240px;overflow:auto;margin-top:8px;background:#fafafa;padding:8px;border-radius:6px;border:1px solid #eee"></pre>
+      </div>
+      <div id="out"></div>
+    </div>
+      <div id="change" style="max-width:380px;margin-top:18px">
+        <h3>Change admin password</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <input id="curPass" type="password" placeholder="Current password" />
+          <input id="newPass" type="password" placeholder="New password" />
+          <input id="confirmPass" type="password" placeholder="Confirm new password" />
+            <button id="changeBtn">Change password</button>
+            <button id="rotateBtn" style="margin-top:6px">Rotate password (generate temp)</button>
+            <div id="changeMsg" style="color:green"></div>
+            <div id="rotateMsg" style="color:blue;margin-top:6px"></div>
+        </div>
+      </div>
+    <script>
+      document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+        const token = localStorage.getItem('adminToken');
+        try{ await fetch('/api/admin/logout', {method:'POST', headers: { Authorization: 'Bearer '+token }}); }catch(e){}
+        localStorage.removeItem('adminToken');
+        showLogin();
+      });
+      document.getElementById('refreshBtn').addEventListener('click', ()=>load());
+      document.getElementById('showAll').addEventListener('change', ()=>load());
+      // import UI handlers
+      let parsedImport = null;
+      document.getElementById('importFile').addEventListener('change', (e)=>{
+        const f = e.target.files && e.target.files[0];
+        const previewEl = document.getElementById('importPreview');
+        const status = document.getElementById('importStatus'); status.textContent='';
+        if(!f){ parsedImport = null; previewEl.textContent=''; return; }
+        const reader = new FileReader();
+        reader.onload = (ev)=>{
+          try{ parsedImport = JSON.parse(ev.target.result); previewEl.textContent = JSON.stringify(parsedImport, null, 2); }catch(err){ parsedImport = null; previewEl.textContent = 'Invalid JSON file'; }
+        };
+        reader.readAsText(f);
+      });
+      document.getElementById('previewImportBtn').addEventListener('click', async ()=>{
+        const status = document.getElementById('importStatus'); status.style.color='black'; status.textContent='';
+        if(!parsedImport){ status.textContent='Choose a valid JSON file first'; return; }
+        const token = localStorage.getItem('adminToken');
+        try{
+          const r = await fetch('/api/admin/import-comments?preview=true', { method:'POST', headers: { 'Content-Type':'application/json', Authorization: 'Bearer '+token }, body: JSON.stringify(parsedImport) });
+          const j = await r.json();
+          if(r.ok && j.ok){
+            status.style.color='green'; status.textContent='Preview ready — select items below';
+            // render selectable list
+            const previewEl = document.getElementById('importPreview');
+            previewEl.innerHTML = '';
+            if(j.pages && j.pages.length){
+              j.pages.forEach(pg=>{
+                const h = document.createElement('h4'); h.innerText = pg.page; previewEl.appendChild(h);
+                const ul = document.createElement('div'); ul.style.display='grid'; ul.style.gridTemplateColumns='repeat(auto-fill,minmax(320px,1fr))'; ul.style.gap='8px';
+                pg.items.forEach(it=>{
+                  const wrapper = document.createElement('label'); wrapper.style.display='block'; wrapper.style.border='1px solid #eee'; wrapper.style.padding='8px'; wrapper.style.borderRadius='6px'; wrapper.style.background = it.exists? '#fff7f0':'#fff';
+                  const cb = document.createElement('input'); cb.type='checkbox'; cb.dataset.page = pg.page; cb.dataset.id = it.id; cb.dataset.time = it.time || '';
+                  cb.checked = !it.exists;
+                  const nameInput = document.createElement('input'); nameInput.type='text'; nameInput.value = it.name || ''; nameInput.placeholder = 'Name'; nameInput.dataset.field='name'; nameInput.style.width='100%'; nameInput.style.marginTop='6px';
+                  const emailInput = document.createElement('input'); emailInput.type='text'; emailInput.value = it.email || ''; emailInput.placeholder = 'Email'; emailInput.dataset.field='email'; emailInput.style.width='100%'; emailInput.style.marginTop='6px';
+                  const txtarea = document.createElement('textarea'); txtarea.rows=3; txtarea.dataset.field='text'; txtarea.style.width='100%'; txtarea.style.marginTop='6px'; txtarea.textContent = it.text || '';
+                    const err = document.createElement('div'); err.style.marginTop='6px'; err.style.fontSize='0.8rem'; err.style.color='#b02a37';
+                    const note = document.createElement('div'); note.style.marginTop='6px'; note.style.fontSize='0.8rem'; note.style.color='#666'; note.innerText = it.exists? 'Already exists — will be skipped by default' : '';
+                    // validation helper
+                    function validateInputs(){
+                      const msgs = [];
+                      const nm = nameInput.value.trim();
+                      const em = emailInput.value.trim();
+                      const tx = txtarea.value.trim();
+                      if(!tx) msgs.push('Text is empty');
+                      if(em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) msgs.push('Email looks invalid');
+                      // apply styles
+                      [nameInput, emailInput, txtarea].forEach(el=> el.style.outline='');
+                      if(msgs.length){ err.textContent = msgs.join('; '); wrapper.style.borderColor = '#f5c6cb'; cb.dataset.valid='false'; }
+                      else { err.textContent=''; wrapper.style.borderColor = '#eee'; cb.dataset.valid='true'; }
+                      return msgs.length===0;
+                    }
+                    // run initial validation
+                    validateInputs();
+                    // re-validate on input
+                    nameInput.addEventListener('input', validateInputs);
+                    emailInput.addEventListener('input', validateInputs);
+                    txtarea.addEventListener('input', validateInputs);
+                    wrapper.appendChild(cb);
+                    wrapper.appendChild(nameInput);
+                    wrapper.appendChild(emailInput);
+                    wrapper.appendChild(txtarea);
+                    wrapper.appendChild(err);
+                    wrapper.appendChild(note);
+                  ul.appendChild(wrapper);
+                });
+                previewEl.appendChild(ul);
+              });
+              // attach quick-select controls
+              const controls = document.createElement('div'); controls.style.marginTop='8px';
+              const selectAll = document.createElement('button'); selectAll.type='button'; selectAll.innerText='Select All'; selectAll.onclick = ()=>{ previewEl.querySelectorAll('input[type="checkbox"]').forEach(i=>{ if(!i.disabled) i.checked = true; }); };
+              const deselectAll = document.createElement('button'); deselectAll.type='button'; deselectAll.innerText='Deselect All'; deselectAll.style.marginLeft='8px'; deselectAll.onclick = ()=>{ previewEl.querySelectorAll('input[type="checkbox"]').forEach(i=>{ i.checked = false; }); };
+              controls.appendChild(selectAll); controls.appendChild(deselectAll); previewEl.insertBefore(controls, previewEl.firstChild);
+              // store last preview response for confirm
+              window.__lastImportPreview = j;
+            } else { previewEl.textContent = 'No items in preview'; }
+          } else { status.style.color='red'; status.textContent = j.error || 'preview failed'; }
+        }catch(e){ status.style.color='red'; status.textContent='server error'; }
+      });
+      document.getElementById('confirmImportBtn').addEventListener('click', async ()=>{
+        const status = document.getElementById('importStatus'); status.style.color='black'; status.textContent='';
+        if(!window.__lastImportPreview){ status.textContent='Run preview first'; return; }
+        if(!confirm('Import selected comments now? This will persist data and cannot be undone.')) return;
+        // collect selected items grouped by page, reading edited values from inputs
+        const previewEl = document.getElementById('importPreview');
+        const checks = Array.from(previewEl.querySelectorAll('input[type="checkbox"]'));
+        const byPage = {};
+        checks.forEach(cb=>{
+          if(!cb.checked) return;
+          if(cb.dataset.valid==='false'){ /* invalid - skip and flag */ }
+          const page = cb.dataset.page;
+          const id = cb.dataset.id;
+          const wrapper = cb.closest('label') || cb.parentElement;
+          const nameInput = wrapper.querySelector('input[data-field="name"]');
+          const emailInput = wrapper.querySelector('input[data-field="email"]');
+          const txtarea = wrapper.querySelector('textarea[data-field="text"]');
+          const name = nameInput ? nameInput.value : '';
+          const email = emailInput ? emailInput.value : '';
+          const text = txtarea ? txtarea.value : '';
+          const time = cb.dataset.time || new Date().toISOString();
+          byPage[page] = byPage[page] || [];
+          byPage[page].push({ id, name, email, text, time });
+        });
+        // check for any selected invalid items
+        const invalidSelected = Array.from(previewEl.querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked && cb.dataset.valid==='false');
+        if(invalidSelected){ document.getElementById('importStatus').style.color='red'; document.getElementById('importStatus').textContent='Some selected items are invalid; fix inline errors before importing.'; return; }
+        const payload = Object.keys(byPage).map(p=>({ page: p, comments: byPage[p] }));
+        if(payload.length===0){ status.textContent='No items selected'; return; }
+        const token = localStorage.getItem('adminToken');
+        try{
+          const r = await fetch('/api/admin/import-comments', { method:'POST', headers: { 'Content-Type':'application/json', Authorization: 'Bearer '+token }, body: JSON.stringify(payload.length===1? payload[0]: payload) });
+          const j = await r.json();
+          if(r.ok && j.ok){ document.getElementById('importPreview').textContent = JSON.stringify(j.summary || j, null, 2); status.style.color='green'; status.textContent='Import complete'; load(); window.__lastImportPreview = null; }
+          else { status.style.color='red'; status.textContent = j.error || 'import failed'; }
+        }catch(e){ status.style.color='red'; status.textContent='server error'; }
+      });
+        document.getElementById('changeBtn').addEventListener('click', async ()=>{
+          const cur = document.getElementById('curPass').value;
+          const next = document.getElementById('newPass').value;
+          const conf = document.getElementById('confirmPass').value;
+          const msg = document.getElementById('changeMsg'); msg.style.color='red'; msg.textContent='';
+          if(!cur||!next|| next!==conf){ msg.textContent='Fill fields and make sure passwords match.'; return; }
+          const token = localStorage.getItem('adminToken');
+          try{
+            const r = await fetch('/api/admin/change-password', {method:'POST', headers: { 'Content-Type':'application/json', Authorization: 'Bearer '+token }, body: JSON.stringify({ current: cur, next }) });
+            const j = await r.json();
+            if(r.ok && j.ok){ msg.style.color='green'; msg.textContent='Password changed.'; document.getElementById('curPass').value=''; document.getElementById('newPass').value=''; document.getElementById('confirmPass').value=''; }
+            else { msg.textContent = j.error || 'failed'; }
+          }catch(e){ msg.textContent='server error'; }
+        });
+        // rotate-password (client generates a strong temp password and submits)
+        document.getElementById('rotateBtn').addEventListener('click', async ()=>{
+          const cur = document.getElementById('curPass').value;
+          const msg = document.getElementById('rotateMsg'); msg.style.color='red'; msg.textContent='';
+          if(!cur){ msg.textContent='Enter current password above.'; return; }
+          // generate a strong temp password
+          const gen = (len=18)=>{
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+';
+            const arr = new Uint32Array(len);
+            window.crypto.getRandomValues(arr);
+            return Array.from(arr).map(n=>chars[n % chars.length]).join('');
+          };
+          const temp = gen(18);
+          const token = localStorage.getItem('adminToken');
+          try{
+            const r = await fetch('/api/admin/rotate-password', {method:'POST', headers: { 'Content-Type':'application/json', Authorization: 'Bearer '+token }, body: JSON.stringify({ current: cur, newPassword: temp }) });
+            const j = await r.json();
+            if(r.ok && j.ok){ msg.style.color='green'; msg.textContent='Password rotated. Temporary password: '+temp+' — copy and log in again.'; localStorage.removeItem('adminToken'); showLogin(); }
+            else { msg.textContent = j.error || 'failed'; }
+          }catch(e){ msg.textContent='server error'; }
+        });
+    </script>
+  </div>
+</body>
+</html>

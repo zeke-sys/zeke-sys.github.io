@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>What audit taught me about code reviews — Zeke Isaac</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="recaptcha-site-key" content="YOUR_RECAPTCHA_SITE_KEY">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+  <script defer src="article.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- header -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="logo">ZI</span> Zeke Isaac</a>
+      <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Menu">☰</button>
+      <nav class="nav-links" role="navigation" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="writing.html">Writing</a>
+        <a href="contact.html">Contact</a>
+        <a href="zeke-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">🌗</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container page-container">
+    <div class="article-layout">
+      <article class="article-main">
+        <h1>What audit taught me about code reviews</h1>
+        <p class="page-subtitle">Evidence-driven reviews, small diffs, and measurable outcomes.</p>
+
+        <div class="reactions" aria-label="Article reactions">
+          <button class="reaction-btn like-btn" data-name="like">👍 <span class="count">0</span></button>
+          <button class="reaction-btn" data-name="heart">❤️ <span class="count">0</span></button>
+          <button class="reaction-btn" data-name="clap">🎉 <span class="count">0</span></button>
+        </div>
+
+        <p>
+          As an auditor, every finding had three parts: the condition, the criteria, and the impact. Translating that
+          into code review practices removes ambiguity. Instead of subjective "looks ok" comments, ask for the evidence —
+          what behavior changed, which test covers that change, and where the monitoring will surface regressions.
+        </p>
+
+        <h2>Small, focused changes</h2>
+        <p>
+          Large pull requests hide intent. Audit taught me to expect atomic changes: a single reason to change and a test
+          that proves the reason. Small PRs minimize review overhead and make causal reasoning easier for reviewers.
+        </p>
+
+        <h2>Traceability and tests</h2>
+        <p>
+          Traceability means mapping a requirement or bug to tests and production observability. Ask: what metric will tell us
+          this worked? Use integration or property tests to prove behavior, not just unit-level implementation details.
+        </p>
+
+        <h2>Risk-focused review</h2>
+        <p>
+          Not every line needs the same scrutiny. Prioritize review effort by risk — auth, data flows, and error handling deserve
+          deeper checks than UI copy changes. Use lightweight checklists to standardize what reviewers look for in high-risk areas.
+        </p>
+
+        <section class="comments" aria-live="polite">
+          <h3>Comments</h3>
+          <div id="comments-list"></div>
+          <form id="comment-form" class="comment-form" aria-label="Add comment">
+              <input id="comment-name" placeholder="Your name (optional)" />
+              <input id="comment-email" placeholder="Email (optional, used for avatar)" />
+              <input id="comment-hp" style="display:none" aria-hidden="true" />
+              <textarea id="comment-text" rows="4" placeholder="Share your thoughts (Markdown supported)"></textarea>
+              <button type="submit">Post comment</button>
+            </form>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4>Other pieces</h4>
+          <ul>
+            <li><a href="writing-trie-autocomplete.html">Building a trie autocomplete</a></li>
+            <li><a href="writing-security-design.html">Bringing security into early designs</a></li>
+            <li><a href="writing-audit-tests.html">Turning audit findings into tests</a></li>
+            <li><a href="writing-small-automations.html">Small automations that ship</a></li>
+            <li><a href="writing.html">Back to writing</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><small>© <span id="year-writing"></span> Zeke Isaac</small></div></footer>
+</body>
+</html>

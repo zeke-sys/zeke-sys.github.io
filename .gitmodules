@@ -1,0 +1,3 @@
+[submodule "server"]
+	path = server
+	url = ../zeke_server_repo.git

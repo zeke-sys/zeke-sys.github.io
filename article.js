@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // point API calls to localhost:3000 where the Node server runs during development.
   const API_BASE = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' || window.location.hostname === '0.0.0.0') && (window.location.port && window.location.port !== '3000') ? 'http://localhost:3000' : '';
 
+  // If we're running on GitHub Pages (or other static host) avoid probing /api endpoints
+  // because they don't exist there and browsers will log 404s in the console.
+  const IS_STATIC_HOST = window.location.hostname.endsWith('.github.io') || window.location.hostname === 'zeke-sys.github.io';
+
   const apiAvailable = async () => {
+    if (IS_STATIC_HOST) return false;
     try { const r = await fetch(API_BASE + '/api/reactions?page='+encodeURIComponent(pageKey)); return r.ok; } catch(e){ return false; }
   };
 

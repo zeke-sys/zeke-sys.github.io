@@ -1,0 +1,17 @@
+{
+  "name": "zeke-portfolio-comments",
+  "version": "0.1.0",
+  "description": "Simple comments + reactions API for Zeke portfolio (demo)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "bcryptjs": "^2.4.3",
+    "undici": "^5.3.0",
+    "dotenv": "^16.3.1"
+  }
+}

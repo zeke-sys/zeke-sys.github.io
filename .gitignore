@@ -1,5 +1,17 @@
 node_modules/
 .env
+.env*
+.env.local
+*.env
+*.env*
+server/.env
+server/.env*
+server/.env.local
+
+# Ignore all data and secrets
+server/data/
+server/data/*.json
+/data/
 data/
 data/*.json
 auth.json
@@ -7,9 +19,6 @@ admin-sessions.json
 verify.json
 comments.json
 reactions.json
-server/data/
-/.env.local
-server/.env
-server/.env.local
-server/data/
-server/data/*.json
+
+# Ignore npm logs
+npm-debug.log*

@@ -1,0 +1,37 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      RENDER_API_BASE: https://api.render.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Trigger Render deploy
+        id: trigger
+        run: |
+          if [ -z "${{ secrets.RENDER_API_KEY }}" ] || [ -z "${{ secrets.RENDER_SERVICE_ID }}" ]; then
+            echo "Missing required secrets: RENDER_API_KEY and/or RENDER_SERVICE_ID";
+            exit 1;
+          fi
+          echo "Triggering Render deploy for service $RENDER_SERVICE_ID"
+          RESP=$(curl -s -X POST "${RENDER_API_BASE}/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache":true}')
+          echo "response: $RESP"
+          echo "deploy_response<<EOF" >> $GITHUB_OUTPUT
+          $RESP
+          EOF
+
+      - name: Show deploy result
+        run: |
+          echo "Deploy response:";
+          echo "${{ steps.trigger.outputs.deploy_response }}"

@@ -1,0 +1,9 @@
+services:
+- type: web
+  name: zeke-portfolio-comments
+  env: node
+  plan: free
+  repo: ""
+  branch: main
+  buildCommand: npm install
+  startCommand: node server.js

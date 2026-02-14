@@ -23,7 +23,18 @@ const adminSessions = new Map();
 const RATE_WINDOW_MS = parseInt(process.env.RATE_WINDOW_MS || String(60 * 1000), 10); // 1 minute
 const RATE_MAX = parseInt(process.env.RATE_MAX || '10', 10);
 
-app.use(cors());
+// Enable CORS for browser clients. Allow common headers and methods
+// and permit requests from any origin (safe for this demo API).
+app.use(cors({
+  origin: true,
+  methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization','Accept'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
+// Ensure preflight requests are handled
+app.options('*', cors());
 app.use(express.json());
 
 // simple request logging for debugging

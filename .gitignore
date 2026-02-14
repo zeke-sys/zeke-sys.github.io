@@ -22,3 +22,4 @@ reactions.json
 
 # Ignore npm logs
 npm-debug.log*
+\n# Ignore local backups of converted submodule\nserver_git_backup_*/\n

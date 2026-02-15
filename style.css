@@ -679,6 +679,10 @@ body:not(.light) .writing-grid .home-featured-card {
     overflow-y: auto;
     box-shadow: var(--shadow);
     z-index: 20;
+    /* ghost scrollbar for modern browsers */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(255,255,255,0.08) transparent;
+    -webkit-overflow-scrolling: touch;
 }
 
 .suggestions li {
@@ -702,6 +706,19 @@ body.light .suggestions li.active {
     opacity: 0.6;
     cursor: default;
 }
+
+/* Dark mode: make suggestions match trie structure background and use a subtle ghost scrollbar */
+body:not(.light) .suggestions {
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 60%), rgba(15,23,42,0.98);
+    border-color: rgba(148,163,184,0.55);
+    color: var(--text);
+}
+
+/* WebKit ghost scrollbar */
+.suggestions::-webkit-scrollbar{width:8px;height:8px}
+.suggestions::-webkit-scrollbar-track{background:transparent}
+.suggestions::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:8px}
+.suggestions::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.10)}
 
 .trie-visual {
     margin-top: 40px;
@@ -737,6 +754,13 @@ body:not(.light) .trie-diagram-wrapper {
     border-color: rgba(148,163,184,0.55);
 }
 
+/* Make the "Start Typing" input match the Trie Structure box in dark mode */
+body:not(.light) #trie-input {
+    background: radial-gradient(circle at top left, rgba(37,99,235,0.18), transparent 60%), rgba(15,23,42,0.98);
+    border-color: rgba(148,163,184,0.55);
+    color: var(--text);
+}
+
 #trie-svg {
     display: block;
     width: auto;   /* for dynamic width based on nodes */
@@ -757,6 +781,27 @@ body:not(.light) .trie-diagram-wrapper {
 
 .pulse-highlight {
     animation: pulse 0.7s ease-out;
+}
+
+/* Global subtle/ghost scrollbar for elements that scroll (WebKit + Firefox) */
+:root{
+    --ghost-scroll-thumb: rgba(255,255,255,0.06);
+    --ghost-scroll-thumb-hover: rgba(255,255,255,0.10);
+    --ghost-scroll-track: transparent;
+}
+
+/* WebKit browsers */
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-track{background:var(--ghost-scroll-track)}
+*::-webkit-scrollbar-thumb{background:var(--ghost-scroll-thumb);border-radius:8px}
+*::-webkit-scrollbar-thumb:hover{background:var(--ghost-scroll-thumb-hover)}
+
+/* Firefox */
+*{scrollbar-width:thin;scrollbar-color:var(--ghost-scroll-thumb) var(--ghost-scroll-track)}
+
+@media (prefers-contrast: more){
+    *::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.22)}
+    *{scrollbar-color:rgba(255,255,255,0.22) var(--ghost-scroll-track)}
 }
 
 @keyframes pulse {
@@ -1073,7 +1118,7 @@ body:not(.light) .trie-diagram-wrapper {
         height: 100vh;
         width: 80vw;
         max-width: 280px;
-        background: rgba(20, 20, 30, 0.97);
+                background: rgba(20, 20, 30, 0.98);
         backdrop-filter: blur(32px);
         -webkit-backdrop-filter: blur(32px);
         border-left: 1px solid rgba(255,255,255,0.10);
@@ -1245,15 +1290,45 @@ body:not(.light) .sidebar-card {
 .card-link{display:block;color:inherit;text-decoration:none}
 .card-link:hover{transform:translateY(-4px)}
 
-.reactions{display:flex;gap:12px;margin:12px 0 18px;align-items:center;flex-wrap:wrap}
-.reaction-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);cursor:pointer}
-.reaction-btn .count{font-weight:700}
+.reactions{display:flex;gap:8px;margin:8px 0 14px;align-items:center;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.reaction-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:6px 8px;min-width:40px;min-height:36px;font-size:0.95rem;border-radius:999px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);cursor:pointer}
+.reaction-btn .count{font-weight:700;font-size:0.9rem;margin-left:6px}
 .like-btn{background:linear-gradient(90deg,var(--accent),#2aa0ff);color:white;border:none}
 
 .comments{margin-top:18px}
 .comment{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(0,0,0,0.03);margin-bottom:10px}
 .comment.notice{background:rgba(255,255,255,0.02);border-left:4px solid var(--accent);padding:12px 14px;border-radius:10px;color:var(--muted)}
 body.light .comment.notice{background:rgba(0,0,0,0.02);color:#475569}
+
+/* Emoji picker button styles */
+.reaction-picker-btn{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);padding:6px 8px;border-radius:999px;cursor:pointer;font-size:0.95rem;min-width:40px;min-height:36px}
+.reaction-picker-btn:focus{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Emoji hover animation: small, performant transforms and shadow */
+.reaction-btn,
+.reaction-picker-btn{
+    transition:transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, filter 180ms ease;
+    will-change:transform;
+}
+.reaction-btn:hover,
+.reaction-picker-btn:hover{
+    transform:translateY(-4px) scale(1.12);
+    box-shadow:0 6px 18px rgba(2,6,23,0.28);
+    filter:brightness(1.03);
+}
+.reaction-btn:active,
+.reaction-picker-btn:active{
+    transform:translateY(0) scale(0.98);
+}
+.reaction-btn:focus{
+    outline:2px solid rgba(0,0,0,0); /* keep focus visible via box-shadow */
+    box-shadow:0 0 0 3px rgba(59,130,246,0.12), 0 6px 18px rgba(2,6,23,0.18);
+}
+
+@media (prefers-reduced-motion: reduce){
+    .reaction-btn,
+    .reaction-picker-btn{transition:none;transform:none}
+}
 .comment-meta{font-size:0.86rem;color:var(--muted);margin-bottom:6px}
 .comment-body{white-space:pre-wrap}
 .comment-form{display:flex;flex-direction:column;gap:8px;margin-top:12px}

@@ -54,6 +54,33 @@
           can be scripted or integrated into CI.
         </p>
 
+        <h2>Principles that make automations durable</h2>
+        <p>
+          Aim for small, composable tools that do one thing well. Prefer explicit inputs over environment surprises, make
+          idempotency a requirement, and surface clear logging so operators can diagnose failures without stepping through
+          the code.
+        </p>
+
+        <h2>Testing and safety</h2>
+        <p>
+          Automations that touch production systems need safety nets: dry-run modes, clear confirmation prompts, and
+          bounded scopes (e.g., operate on a named subset) reduce blast radius. Write unit tests for parsing and simulation
+          tests for end-to-end behavior so you can validate changes confidently.
+        </p>
+
+        <h2>Examples</h2>
+        <p>
+          Useful examples include scheduled reconciliations that verify records match expected states, small parsers that
+          normalize logs into structured alerts, and scaffolding scripts that create consistent environments for new
+          projects. Keep them discoverable in a tools folder and document op-ex steps.
+        </p>
+
+        <h2>Handoff and distribution</h2>
+        <p>
+          Package simple automations as scripts with clear usage and versioning. Prefer cross-platform runtimes or provide
+          minimal Docker wrappers. Ensure ownership is recorded and on-call runbooks include the most common recovery steps.
+        </p>
+
         <section class="comments">
           <h3>Comments</h3>
           <div class="comment">
@@ -71,6 +98,11 @@
             <li><a href="writing-trie-autocomplete.html">Building a trie autocomplete</a></li>
             <li><a href="writing-security-design.html">Bringing security into early designs</a></li>
             <li><a href="writing-audit-tests.html">Turning audit findings into tests</a></li>
+            <li><a href="writing-ai-audit.html">AI-assisted audit workflows</a></li>
+            <li><a href="writing-ml-governance.html">Governance for machine learning models</a></li>
+            <li><a href="writing-secure-ci-cd.html">Secure CI/CD pipelines</a></li>
+            <li><a href="writing-infra-automation.html">Infrastructure as code that survives</a></li>
+            <li><a href="writing-data-privacy.html">Designing for data privacy</a></li>
             <li><a href="writing.html">Back to writing</a></li>
           </ul>
         </div>

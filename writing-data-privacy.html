@@ -3,14 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bringing security thinking into early designs — Zeke Isaac</title>
+  <title>Designing for data privacy — Zeke Isaac</title>
   <link rel="icon" href="assets/zi-logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
-  <meta name="recaptcha-site-key" content="YOUR_RECAPTCHA_SITE_KEY">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
   <script defer src="article.js"></script>
   <script defer src="script.js"></script>
 </head>
@@ -34,8 +29,8 @@
   <main id="main-content" class="container page-container">
     <div class="article-layout">
       <article class="article-main">
-        <h1>Bringing security thinking into early designs</h1>
-        <p class="page-subtitle">Designs that resist misuse and fail safely.</p>
+        <h1>Designing for data privacy</h1>
+        <p class="page-subtitle">Balancing product needs and privacy-by-design principles.</p>
 
         <div class="reactions" aria-label="Article reactions">
           <button class="reaction-btn like-btn" data-name="like">👍 <span class="count">0</span></button>
@@ -43,29 +38,20 @@
           <button class="reaction-btn" data-name="clap">🎉 <span class="count">0</span></button>
         </div>
 
-        <p>
-          Security isn't a checklist; it's a set of trade-offs embedded into design decisions. Early threat modeling and clear
-          failure modes reduce expensive rework later and shift the team's mindset from "if" to "when" something goes wrong.
-        </p>
-
-        <h2>Threat modeling as a lightweight habit</h2>
-        <p>
-          A 15-minute session focused on assets, actors, and attacks surfaces the high-impact areas. Use concrete examples
-          and map them to mitigations that are verifiable and prioritized by likely impact.
-        </p>
-
-        <h2>Design for observability and recovery</h2>
-        <p>
-          Design choices should make incidents detectable and recoverable. Instrumentation, clear error taxonomy, and decoupled
-          components reduce blast radius and simplify post-incident analysis.
-        </p>
+        <p>Privacy design starts with data minimization: collect only what you need and store it with clear retention rules. Use
+        pseudonymization, access controls, and clear consent flows when user data is involved. Make privacy considerations part
+        of the earliest design conversations.</p>
 
         <section class="comments">
           <h3>Comments</h3>
-          <div class="comment">
-            <p>The comments/admin server has been removed from this site to keep the site static and simple. The emoji reactions on articles are client-only and stored in your browser.</p>
-            <p>If you'd like comments restored or server-backed features enabled, email <a href="mailto:zek3.isaac@gmail.com">zek3.isaac@gmail.com</a> and I can help re-enable them or set up a hosted solution.</p>
-          </div>
+          <div id="comments-list"></div>
+          <form id="comment-form" class="comment-form">
+            <input id="comment-name" placeholder="Your name (optional)" />
+            <input id="comment-email" placeholder="Email (optional, used for avatar)" />
+            <input id="comment-hp" style="display:none" aria-hidden="true" />
+            <textarea id="comment-text" rows="4" placeholder="Share your thoughts (Markdown supported)"></textarea>
+            <button type="submit">Post comment</button>
+          </form>
         </section>
       </article>
 
@@ -75,13 +61,13 @@
           <ul>
             <li><a href="writing-audit-code-reviews.html">What audit taught me about code reviews</a></li>
             <li><a href="writing-trie-autocomplete.html">Building a trie autocomplete</a></li>
+            <li><a href="writing-security-design.html">Bringing security into early designs</a></li>
             <li><a href="writing-audit-tests.html">Turning audit findings into tests</a></li>
             <li><a href="writing-small-automations.html">Small automations that ship</a></li>
             <li><a href="writing-ai-audit.html">AI-assisted audit workflows</a></li>
             <li><a href="writing-ml-governance.html">Governance for machine learning models</a></li>
             <li><a href="writing-secure-ci-cd.html">Secure CI/CD pipelines</a></li>
             <li><a href="writing-infra-automation.html">Infrastructure as code that survives</a></li>
-            <li><a href="writing-data-privacy.html">Designing for data privacy</a></li>
             <li><a href="writing.html">Back to writing</a></li>
           </ul>
         </div>

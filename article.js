@@ -9,6 +9,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveReactions(obj) { localStorage.setItem(reactionsKey, JSON.stringify(obj)); }
 
+  // Emoji picker (client-only)
+  // Replace duplicate inline emojis (👍, ❤️) in the picker with a frown and thumbs-down.
+  const emojis = ['😞','👎','🔥','👀','🤔','⭐'];
+  const picker = document.createElement('div');
+  picker.className = 'reaction-picker';
+  picker.style.display = 'flex';
+  picker.style.gap = '4px';
+  picker.style.marginTop = '3px';
+
+  const stored = loadReactions();
+  emojis.forEach(e => {
+    const code = 'emoji_' + e.codePointAt(0).toString(16);
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'reaction-picker-btn reaction-btn';
+    b.dataset.name = code;
+    const count = stored[code] || 0;
+    b.innerHTML = `${e} <span class="count">${count}</span>`;
+    picker.appendChild(b);
+  });
+
+  const area = document.querySelector('.reactions'); if (area) area.appendChild(picker);
+
+  // (re)collect all reaction buttons (inline + picker) and wire them up
   const reactionButtons = Array.from(document.querySelectorAll('.reaction-btn'));
 
   function renderReactions() {
@@ -30,36 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       renderReactions();
     });
   });
-
-  // Emoji picker (client-only)
-  const emojis = ['👍','❤️','🎉','🔥','👀','🤔'];
-  const picker = document.createElement('div');
-  picker.className = 'reaction-picker';
-  picker.style.display = 'flex';
-  picker.style.gap = '8px';
-  picker.style.marginTop = '6px';
-
-  emojis.forEach(e => {
-    const code = 'emoji_' + e.codePointAt(0).toString(16);
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'reaction-picker-btn';
-    b.textContent = e;
-    b.style.padding = '6px 10px';
-    b.addEventListener('click', () => {
-      const data = loadReactions();
-      data[code] = (data[code] || 0) + 1;
-      saveReactions(data);
-      // update any matching buttons
-      document.querySelectorAll(`.reaction-btn[data-name="${code}"]`).forEach(btn => {
-        const span = btn.querySelector('.count'); if (span) span.textContent = data[code];
-      });
-      renderReactions();
-    });
-    picker.appendChild(b);
-  });
-
-  const area = document.querySelector('.reactions'); if (area) area.appendChild(picker);
 
   renderReactions();
   // Replace any existing comments UI with a static notice (matches admin.html)

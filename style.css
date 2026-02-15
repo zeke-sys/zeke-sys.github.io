@@ -1102,8 +1102,7 @@ body:not(.light) #trie-input {
 @media (max-width:980px){
     .container{padding-left:16px;padding-right:16px}
     .page-container{padding-left:12px;padding-right:12px}
-    /* Force main to center its content on small screens */
-    .page-container{display:flex;justify-content:center}
+    /* Force main to center its content on small screens (scoped to article layout) */
     .article-layout{justify-content:center;justify-items:center;padding-left:0;padding-right:0;box-sizing:border-box;width:100%;max-width:980px;margin:0}
     .article-main{margin-left:auto;margin-right:auto;box-sizing:border-box}
 }
@@ -1227,14 +1226,8 @@ body.light .nav-links button:hover {
 }
 
 /* Dark-Mode Lighting */
-body:not(.light) .page-container {
-    background: rgba(255, 255, 255, 0.03); /* soft transparent panel */
-    padding: 44px 40px;
-    border-radius: 20px;
-    backdrop-filter: blur(8px); /* subtle glass effect */
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.06); /* faint border for definition */
-}
+/* Removed global dark-mode panel on .page-container to avoid affecting non-article pages.
+   Article-specific styling remains scoped to `.article-main` and `.article-layout`. */
 
 body:not(.light) .nav-links {
     background: rgba(255, 255, 255, 0.03); /* soft transparent */
@@ -1368,4 +1361,34 @@ body.light .comment.notice{background:rgba(0,0,0,0.02);color:#475569}
     .article-main img{max-width:100%;height:auto;border-radius:8px}
     .reactions{gap:8px}
     .comment-meta img{width:34px;height:34px}
+}
+
+/* Mobile sticky stacking for writing cards: make each card stick to the top as you scroll */
+@media (max-width: 640px) {
+    .writing-grid{display:block}
+    .writing-grid .home-featured-card{
+        position:sticky;
+        position:-webkit-sticky;
+        top:76px; /* leaves room for fixed navbar */
+        margin: 0 0 18px 0;
+        z-index:10;
+        transition:box-shadow .18s ease, transform .18s ease;
+    }
+    /* Increase z-index for later cards so they stack on top as they stick */
+    .writing-grid .home-featured-card:nth-child(1){z-index:10}
+    .writing-grid .home-featured-card:nth-child(2){z-index:20}
+    .writing-grid .home-featured-card:nth-child(3){z-index:30}
+    .writing-grid .home-featured-card:nth-child(4){z-index:40}
+    .writing-grid .home-featured-card:nth-child(5){z-index:50}
+    .writing-grid .home-featured-card:nth-child(6){z-index:60}
+    .writing-grid .home-featured-card:nth-child(7){z-index:70}
+    .writing-grid .home-featured-card:nth-child(8){z-index:80}
+    .writing-grid .home-featured-card:nth-child(9){z-index:90}
+    .writing-grid .home-featured-card:nth-child(10){z-index:100}
+    .writing-grid .home-featured-card:nth-child(11){z-index:110}
+    .writing-grid .home-featured-card:nth-child(12){z-index:120}
+    .writing-grid .home-featured-card:in-view,
+    .writing-grid .home-featured-card:focus-within{
+        box-shadow:0 12px 36px rgba(2,6,23,0.45);
+    }
 }

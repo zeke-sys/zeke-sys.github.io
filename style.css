@@ -409,6 +409,22 @@ body.light .page-container {
     backdrop-filter: blur(6px);
     transition: background 0.3s ease;
 }
+
+/* Reduce page container padding on small screens so light/dark feel consistent */
+@media (max-width: 980px) {
+    body.light .page-container {
+        padding: 14px 12px;
+        border-radius: 12px;
+    }
+}
+
+/* Further reduce padding on very small screens for a tighter premium feel */
+@media (max-width: 640px) {
+    body.light .page-container {
+        padding: 10px 10px;
+        border-radius: 10px;
+    }
+}
 body.light .page-container,
 body.light .page-container h1,
 body.light .page-container h2,
@@ -1194,6 +1210,14 @@ body:not(.light) #trie-input {
     margin-left: auto;
     padding: 4px 10px;
   }
+}
+
+/* Center hero and contact CTA buttons on small screens */
+@media (max-width:640px){
+        .hero-cta{justify-content:center}
+        .hero-cta .btn{min-width:120px}
+        .contact-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+        .contact-actions .btn{min-width:120px}
 }
 
 /* Light-Mode Menu */

@@ -6,7 +6,7 @@
   --text: #e6eef8;
   --accent: #0b60ff;
   --glass: rgba(255,255,255,0.03);
-  --radius: 12px;
+  --radius: 16px;
     --container: 1040px;
   --card-border: rgba(255,255,255,0.6);
   --card-bg: #11141a;
@@ -414,7 +414,7 @@ body.light .page-container {
 @media (max-width: 980px) {
     body.light .page-container {
         padding: 14px 12px;
-        border-radius: 12px;
+        border-radius: 16px;
     }
 }
 
@@ -423,6 +423,37 @@ body.light .page-container {
     body.light .page-container {
         padding: 10px 10px;
         border-radius: 10px;
+    }
+}
+/* Apply the same page layout structure to dark mode pages without changing light mode styles */
+body:not(.light) .page-container {
+    /* lighter local background and subtle border to match light-card look */
+    background: rgba(255,255,255,0.06);
+    padding: 44px 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 60px rgba(2,6,23,0.62);
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+@media (max-width: 980px) {
+    body:not(.light) .page-container {
+        padding: 14px 12px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.06);
+        box-shadow: 0 14px 40px rgba(2,6,23,0.52);
+    }
+}
+
+@media (max-width: 640px) {
+    body:not(.light) .page-container {
+        padding: 10px 10px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.045);
+        box-shadow: 0 10px 30px rgba(2,6,23,0.44);
     }
 }
 body.light .page-container,
@@ -495,6 +526,7 @@ body.light .page-container img {
     background:var(--card);
     border-radius:var(--radius);
     overflow:visible;
+    position:relative;
     box-shadow:0 10px 30px rgba(2,6,23,0.55);
     transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
     border:1px solid rgba(15,23,42,0.7);
@@ -508,12 +540,11 @@ body.light .page-container img {
 
 .body-not-used-comment { }
 .body-not-used-comment { }
-body:not(.light) .project-card{
-    background:radial-gradient(circle at top left, rgba(37,99,235,0.14), transparent 60%), rgba(15,23,42,0.96);
-    border-color:rgba(148,163,184,0.45);
-}
+
 .project-card .card-img-wrapper{
-    border-radius:var(--radius);
+    /* round only the top corners so the card body keeps its bottom radius */
+    border-bottom-left-radius:0;
+    border-bottom-right-radius:0;
     overflow:hidden;
     box-shadow: 0 20px 60px rgba(2,6,23,0.55);
     transition: box-shadow 0.22s ease, transform 0.18s ease;
@@ -522,7 +553,7 @@ body.light .project-card .card-img-wrapper{
     box-shadow: 0 14px 40px rgba(2,6,23,0.12);
 }
 body:not(.light) .project-card .card-img-wrapper{
-    box-shadow: 0 20px 60px rgba(2,6,23,0.55);
+    box-shadow: 0 22px 64px rgba(2,6,23,0.72);
 }
 .card-img{width:100%;display:block}
 .project-card .card-img-wrapper{
@@ -532,6 +563,8 @@ body:not(.light) .project-card .card-img-wrapper{
 .project-card .card-img-wrapper img{
     width:100%;
     display:block;
+    /* match light-mode image styling: subtle shadow and rounded top corners */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 @media (min-width: 601px){
     .card-img{
@@ -549,6 +582,103 @@ body:not(.light) .project-card .card-img-wrapper{
     }
     .projects-grid{ grid-template-columns: 1fr; }
 }
+
+/* Premium dark-mode styling for Projects page: mirror light-mode card look */
+body:not(.light) .projects-page .page-container{
+    background: rgba(17,20,26,0.92);
+    border: 1px solid rgba(148,163,184,0.12);
+    box-shadow: 0 22px 64px rgba(2,6,23,0.6);
+}
+
+/* Dark mode project cards: slightly lighter background, subtle border, and stronger shadow to create a more premium feel while maintaining the same overall structure as light mode. */
+body:not(.light) .projects-page .project-card{
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(148,163,184,0.18);
+    box-shadow: 0 18px 44px rgba(2,6,23,0.6);
+    border-radius: 16px;
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+}
+
+body:not(.light) .projects-page .project-card:hover{
+    border-color: rgba(59,130,246,0.75);
+    box-shadow: 0 28px 75px rgba(2,6,23,0.65);
+    transform: translateY(-8px) scale(1.01);
+}
+
+
+/* Ensure card body text remains readable in dark mode */
+body:not(.light) .projects-page .card-body p{ color: var(--muted); }
+
+/* Premium light-mode styling for Projects page: mirror dark-mode pop-out */
+body.light .projects-page .page-container{
+    background: rgba(255,255,255,0.96);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 22px 64px rgba(2,6,23,0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+}
+
+body.light .projects-page .project-card{
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 14px 36px rgba(2,6,23,0.08);
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+}
+
+body.light .projects-page .project-card:hover{
+    border-color: rgba(59,130,246,0.85);
+    box-shadow: 0 26px 72px rgba(2,6,23,0.12), 0 0 0 4px rgba(59,130,246,0.04);
+    transform: translateY(-8px) scale(1.01);
+}
+
+body.light .projects-page .project-card .card-img-wrapper{
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+body.light .projects-page .project-card .card-img-wrapper img {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+body:not(.light) .projects-page .project-card .card-img-wrapper img {
+    box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+}
+
+/* subtle colored rim in light mode (soft and very low alpha) */
+body.light .projects-page .project-card::after{
+    content: "";
+    position: absolute;
+    left: -8px; right: -8px; top: -8px; bottom: -8px;
+    border-radius: calc(var(--radius) + 8px);
+    background: linear-gradient(120deg, rgba(59,130,246,0.03), rgba(14,116,144,0.02));
+    filter: blur(0px);
+    transition: filter 0.18s ease, opacity 0.14s ease;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 1;
+}
+
+body.light .projects-page .project-card:hover::after{
+    filter: blur(0px);
+}
+
+
+/* Ensure Projects page cards/images use the same top-corner radius as light mode (16px)
+   and that wrappers clip images while allowing the rim pseudo-element to show. */
+.projects-page .project-card{
+    border-radius: var(--radius);
+    overflow: hidden; /* important */
+}
+
+.projects-page .project-card .card-img-wrapper {
+    overflow: hidden;
+}
+
+.projects-page .project-card .card-img-wrapper img {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+}
+
 .card-body{padding:16px}
 .card-body h3{margin:0 0 8px}
 .card-body p{color:var(--muted);margin:0 0 12px}
@@ -799,7 +929,7 @@ body:not(.light) .suggestions {
     overflow-x: auto;  /* for horizontal scrolling */
     border: 1px solid rgba(255,255,255,0.1);
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 16px;
     background: var(--card);
 }
 

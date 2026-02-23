@@ -69,3 +69,5 @@ document.addEventListener('DOMContentLoaded', () => {
     commentSections.forEach(s => { s.innerHTML = noticeHTML; });
   }
 });
+
+// end of article.js
